@@ -5,7 +5,7 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Laporan Barang Keluar</h4>
+                <h4>Laporan Barang Masuk</h4>
             </div>
         </div>
         <?php if (session()->has('success')) : ?>
@@ -35,7 +35,7 @@
         <?php endif; ?>
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="<?= base_url('laporan-barang-keluar/generate') ?>">
+                <form method="POST" action="<?= base_url('laporan-barang-masuk/generate') ?>">
                     <?= csrf_field() ?>
                     <div class="row">
                         <div class="col-md-5">
@@ -66,23 +66,23 @@
                                 <th>No</th>
                                 <th>Periode Awal</th>
                                 <th>Periode Akhir</th>
-                                <th>Total Barang Keluar</th>
-                                <th>Detail Barang Keluar</th>
+                                <th>Total Barang Masuk</th>
+                                <th>Detail Barang Masuk</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $no = 1; ?>
-                            <?php foreach ($laporanBarangKeluar as $laporan) : ?>
+                            <?php foreach ($laporanBarangMasuk as $laporan) : ?>
                                 <tr>
                                     <td><?= $no++; ?></td>
                                     <td><?= $laporan['periode_awal'] ?></td>
                                     <td><?= $laporan['periode_akhir'] ?></td>
-                                    <td><?= $laporan['total_barang_keluar'] ?></td>
+                                    <td><?= $laporan['total_barang_masuk'] ?></td>
                                     <td>
-                                        <?php foreach ($barangKeluar as $item) : ?>
-                                            <?php if ($item['tanggal_keluar'] >= $laporan['periode_awal'] && $item['tanggal_keluar'] <= $laporan['periode_akhir']) : ?>
-                                                <p><?= $item['nama_barang'] ?> (<?= $item['jumlah_keluar'] ?>)</p>
+                                        <?php foreach ($barangMasuk as $item) : ?>
+                                            <?php if ($item['tanggal_masuk'] >= $laporan['periode_awal'] && $item['tanggal_masuk'] <= $laporan['periode_akhir']) : ?>
+                                                <p><?= $item['nama_barang'] ?> (<?= $item['jumlah_masuk'] ?>)</p>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </td>
@@ -90,16 +90,15 @@
                                         <div class="wordset">
                                             <ul>
                                                 <li>
-                                                    <a href="<?= base_url('laporan-barang-keluar/export/pdf?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF">
+                                                    <a href="<?= base_url('laporan-barang-masuk/export/pdf?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF">
                                                         <img src="<?= base_url(); ?>/assets/img/icons/pdf.svg" alt="img">
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="<?= base_url('laporan-barang-keluar/export/excel?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Excel">
+                                                    <a href="<?= base_url('laporan-barang-masuk/export/excel?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Excel">
                                                         <img src="<?= base_url(); ?>/assets/img/icons/excel.svg" alt="img">
                                                     </a>
                                                 </li>
-
                                             </ul>
                                         </div>
                                     </td>

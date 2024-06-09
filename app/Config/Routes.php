@@ -29,6 +29,13 @@ $routes->get('/barang-keluar/hapus/(:num)', 'BarangKeluar::hapus/$1');
 
 $routes->get('/laporan-barang-keluar', 'LaporanBarangKeluar::index');
 $routes->post('/laporan-barang-keluar/generate', 'LaporanBarangKeluar::generate');
+$routes->get('/laporan-barang-keluar/export/pdf', 'LaporanBarangKeluar::exportPdf');
+$routes->get('/laporan-barang-keluar/export/excel', 'LaporanBarangKeluar::exportExcel');
+
+$routes->get('/laporan-barang-masuk', 'LaporanBarangMasuk::index');
+$routes->post('/laporan-barang-masuk/generate', 'LaporanBarangMasuk::generate');
+$routes->get('/laporan-barang-masuk/export/pdf', 'LaporanBarangMasuk::exportPdf');
+$routes->get('/laporan-barang-masuk/export/excel', 'LaporanBarangMasuk::exportExcel');
 
 
 

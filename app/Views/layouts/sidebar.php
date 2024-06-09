@@ -15,7 +15,10 @@
                     <a href="/barang-keluar"><i class="fas fa-box-open"></i><span> Daftar Barang Keluar</span> </a>
                 </li>
                 <li>
-                    <a href="/laporan-barang-keluar"><i class="fas fa-box-open"></i><span> Daftar Barang Keluar</span> </a>
+                    <a href="/laporan-barang-masuk"><i data-feather="file-plus"></i><span> Laporan Barang Masuk</span> </a>
+                </li>
+                <li>
+                    <a href="/laporan-barang-keluar"><i data-feather="file-plus"></i><span> Laporan Barang Keluar</span> </a>
                 </li>
 
             </ul>
