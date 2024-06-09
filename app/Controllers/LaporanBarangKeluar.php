@@ -251,5 +251,6 @@ class LaporanBarangKeluar extends BaseController
 
         $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
+        exit();
     }
 }
