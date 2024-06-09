@@ -5,14 +5,38 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Tambah Barang Masuk</h4>
-                <h6>Menambahkan Barang Masuk</h6>
+                <h4>Tambah Barang Keluar</h4>
+                <h6>Menambahkan Barang Keluar</h6>
             </div>
         </div>
-        
+       <?php if (session()->has('success')) : ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '<?= session('success') ?>',
+            timer: 1000,
+        }).then(() => {
+            <?php session()->remove('success'); ?> // Hapus pesan sukses setelah ditampilkan
+        });
+    </script>
+<?php endif; ?>
+
+<?php if (session()->has('error')) : ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= session('error') ?>',
+            timer: 1000,
+        }).then(() => {
+            <?php session()->remove('error'); ?> // Hapus pesan error setelah ditampilkan
+        });
+    </script>
+<?php endif; ?>
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="<?= base_url('barang-masuk/simpan') ?>" enctype="multipart/form-data">
+                <form method="POST" action="<?= base_url('barang-keluar/simpan') ?>" enctype="multipart/form-data">
                     <?= csrf_field() ?>
 
                     <div class="row">
@@ -32,28 +56,26 @@
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Jumlah Masuk</label>
-                                <input type="number" name="jumlah_masuk" class="form-control <?= isset($validation) && $validation->hasError('jumlah_masuk') ? 'is-invalid' : '' ?>" value="<?= old('jumlah_masuk') ?>" placeholder="Masukkan jumlah barang masuk">
+                                <label>Jumlah Keluar</label>
+                                <input type="number" name="jumlah_keluar" class="form-control <?= isset($validation) && $validation->hasError('jumlah_keluar') ? 'is-invalid' : '' ?>" value="<?= old('jumlah_keluar') ?>" placeholder="Masukkan jumlah barang keluar" min="1">
                                 <div class="invalid-feedback">
-                                    <?= isset($validation) ? $validation->getError('jumlah_masuk') : '' ?>
+                                    <?= isset($validation) ? $validation->getError('jumlah_keluar') : '' ?>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Tanggal Masuk</label>
-                                <input type="datetime-local" name="tanggal_masuk" class="form-control <?= isset($validation) && $validation->hasError('tanggal_masuk') ? 'is-invalid' : '' ?>" value="<?= old('tanggal_masuk') ?>" placeholder="Pilih tanggal masuk">
+                                <label>Tanggal Keluar</label>
+                                <input type="datetime-local" name="tanggal_keluar" class="form-control <?= isset($validation) && $validation->hasError('tanggal_keluar') ? 'is-invalid' : '' ?>" value="<?= old('tanggal_keluar') ?>" placeholder="Pilih tanggal dan waktu keluar">
                                 <div class="invalid-feedback">
-                                    <?= isset($validation) ? $validation->getError('tanggal_masuk') : '' ?>
+                                    <?= isset($validation) ? $validation->getError('tanggal_keluar') : '' ?>
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-submit me-2">Simpan</button>
-                            <a href="<?= base_url('barang-masuk') ?>" class="btn btn-cancel">Batal</a>
+                            <a href="<?= base_url('barang-keluar') ?>" class="btn btn-cancel">Batal</a>
                         </div>
                     </div>
                 </form>
@@ -61,6 +83,4 @@
         </div>
     </div>
 </div>
-
-
 <?= $this->endSection('content'); ?>

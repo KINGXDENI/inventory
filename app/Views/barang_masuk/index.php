@@ -12,29 +12,31 @@
                 <a href="<?= base_url('barang-masuk/tambah') ?>" class="btn btn-added"><img src="<?= base_url(); ?>/assets/img/icons/plus.svg" alt="img" class="me-1">Tambah Barang Masuk</a>
             </div>
         </div>
-        <?php if (session()->has('success')) : ?>
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Sukses!',
-                    text: '<?= session('success') ?>',
-                    timer: 1000,
-                });
-            </script>
-        <?php endif; ?>
+       <?php if (session()->has('success')) : ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '<?= session('success') ?>',
+            timer: 1000,
+        }).then(() => {
+            <?php session()->remove('success'); ?> // Hapus pesan sukses setelah ditampilkan
+        });
+    </script>
+<?php endif; ?>
 
-        <?php if (session()->has('error')) : ?>
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: '<?= session('error') ?>',
-                    timer: 1000,
-                });
-            </script>
-        <?php endif; ?>
-
-
+<?php if (session()->has('error')) : ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= session('error') ?>',
+            timer: 1000,
+        }).then(() => {
+            <?php session()->remove('error'); ?> // Hapus pesan error setelah ditampilkan
+        });
+    </script>
+<?php endif; ?>
         <div class="card">
             <div class="card-body">
                 <div class="table-top">

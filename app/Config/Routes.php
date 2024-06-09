@@ -20,6 +20,14 @@ $routes->get('/barang-masuk/edit/(:num)', 'BarangMasuk::edit/$1');
 $routes->post('/barang-masuk/update/(:num)', 'BarangMasuk::update/$1');
 $routes->get('/barang-masuk/hapus/(:num)', 'BarangMasuk::hapus/$1');
 
+$routes->get('/barang-keluar', 'BarangKeluar::index');
+$routes->get('/barang-keluar/tambah', 'BarangKeluar::tambah');
+$routes->post('/barang-keluar/simpan', 'BarangKeluar::simpan');
+$routes->get('/barang-keluar/edit/(:num)', 'BarangKeluar::edit/$1');
+$routes->post('/barang-keluar/update/(:num)', 'BarangKeluar::update/$1');
+$routes->get('/barang-keluar/hapus/(:num)', 'BarangKeluar::hapus/$1');
+
+
 
 
 

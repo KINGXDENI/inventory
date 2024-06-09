@@ -2,15 +2,19 @@
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
-                <li class="<?= current_url() == base_url() ? 'active' : '' ?>">
+                <li>
                     <a href="/"><img src="<?= base_url('assets/img/icons/dashboard.svg') ?>" alt="img"><span> Dashboard</span> </a>
                 </li>
-                <li class="<?= current_url() == base_url('barang') ? 'active' : '' ?>">
+                <li>
                     <a href="/barang"><img src="<?= base_url('assets/img/icons/product.svg') ?>" alt="img"><span> Daftar Barang</span> </a>
                 </li>
-                <li class="<?= current_url() == base_url('barang') ? 'active' : '' ?>">
-                    <a href="/barang-masuk"><img src="<?= base_url('assets/img/icons/product.svg') ?>" alt="img"><span> Daftar Barang</span> </a>
+                <li>
+                    <a href="/barang-masuk"><i class="fas fa-box"></i><span> Daftar Barang Masuk</span> </a>
                 </li>
+                <li>
+                    <a href="/barang-keluar"><i class="fas fa-box-open"></i><span> Daftar Barang Keluar</span> </a>
+                </li>
+
             </ul>
         </div>
     </div>

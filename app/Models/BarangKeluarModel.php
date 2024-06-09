@@ -12,4 +12,11 @@ class BarangKeluarModel extends Model
     protected $returnType       = 'array';
     protected $allowedFields    = ['barang_id', 'jumlah_keluar', 'tanggal_keluar'];
     protected $useTimestamps    = true;
+
+    public function getBarangKeluar()
+    {
+        return $this->select('barang_keluar.*, barang.nama_barang')
+        ->join('barang', 'barang.id = barang_keluar.barang_id')
+        ->findAll();
+    }
 }
