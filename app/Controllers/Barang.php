@@ -97,13 +97,17 @@ class Barang extends BaseController
             $barangModel = new BarangModel();
 
             $data = [
-                    'title' => 'Data Barang', // Judul halaman
-                    'barang' => $barangModel->findAll(),
-                ];
-            return redirect()->to('/barang')->with('barang', $data); 
+                'title' => 'Data Barang', // Judul halaman
+                'barang' => $barangModel->findAll(),
+            ];
+
+            return view('barang/barang', $data);
         } else {
             session()->setFlashdata('error', 'Gagal mengupload gambar.');
-            return redirect()->to('/barang/tambah');
+            $data = [
+                'title' => 'Tambah Barang',
+            ];
+            return view('barang/barangtambah', $data);
         }
     }
 
@@ -199,7 +203,13 @@ class Barang extends BaseController
         $barangModel = new BarangModel();
         $barang = $barangModel->find($id);
         if (!$barang) {
-            return redirect()->to('/barang')->with('error', 'Barang tidak ditemukan.');
+            session()->setFlashdata('error', 'Barang tidak ditemukan.');
+            $data = [
+                'title' => 'Data Barang', // Judul halaman
+                'barang' => $barangModel->findAll(),
+            ];
+
+            return view('barang/barang', $data);
         }
 
         // Hapus foto jika ada
