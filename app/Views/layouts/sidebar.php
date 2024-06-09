@@ -14,6 +14,9 @@
                 <li>
                     <a href="/barang-keluar"><i class="fas fa-box-open"></i><span> Daftar Barang Keluar</span> </a>
                 </li>
+                <li>
+                    <a href="/laporan-barang-keluar"><i class="fas fa-box-open"></i><span> Daftar Barang Keluar</span> </a>
+                </li>
 
             </ul>
         </div>

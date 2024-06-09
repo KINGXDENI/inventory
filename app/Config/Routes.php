@@ -27,6 +27,10 @@ $routes->get('/barang-keluar/edit/(:num)', 'BarangKeluar::edit/$1');
 $routes->post('/barang-keluar/update/(:num)', 'BarangKeluar::update/$1');
 $routes->get('/barang-keluar/hapus/(:num)', 'BarangKeluar::hapus/$1');
 
+$routes->get('/laporan-barang-keluar', 'LaporanBarangKeluar::index');
+$routes->post('/laporan-barang-keluar/generate', 'LaporanBarangKeluar::generate');
+
+
 
 
 
