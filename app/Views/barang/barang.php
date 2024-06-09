@@ -133,9 +133,9 @@
                                     <td><?= $item['kode_barang'] ?></td>
                                     <td><?= $item['stok'] ?></td>
                                     <td class="d-flex">
-                                        <a class="me-3" href="product-details.html">
+                                        <!-- <a class="me-3" href="product-details.html">
                                             <img src="<?= base_url(); ?>/assets/img/icons/eye.svg" alt="img">
-                                        </a>
+                                        </a> -->
                                         <a class="me-3" href="/barang/edit/<?= $item['id'] ?>">
                                             <img src="<?= base_url(); ?>/assets/img/icons/edit.svg" alt="img">
                                         </a>
