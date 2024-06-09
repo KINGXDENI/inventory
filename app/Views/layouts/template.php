@@ -20,6 +20,13 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
     <script src="<?= base_url(); ?>/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <style>
+        .fixed-bottom {
+            padding: 1rem;
+            z-index: -1;
+            box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -107,7 +114,7 @@
 
         <?= $this->renderSection('content'); ?>
 
-
+        <?= $this->include('layouts/footer'); ?>
         <script src="<?= base_url(); ?>/assets/js/jquery-3.6.0.min.js"></script>
 
         <script src="<?= base_url(); ?>/assets/js/feather.min.js"></script>
