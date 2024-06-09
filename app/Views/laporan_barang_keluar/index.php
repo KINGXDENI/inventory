@@ -86,22 +86,13 @@
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </td>
-                                    <td>
-                                        <div class="wordset">
-                                            <ul>
-                                                <li>
-                                                    <a href="<?= base_url('laporan-barang-keluar/export/pdf?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF">
-                                                        <img src="<?= base_url(); ?>/assets/img/icons/pdf.svg" alt="img">
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="<?= base_url('laporan-barang-keluar/export/excel?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Excel">
-                                                        <img src="<?= base_url(); ?>/assets/img/icons/excel.svg" alt="img">
-                                                    </a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
+                                    <td class="d-flex">
+                                        <a href="<?= base_url('laporan-barang-keluar/export/pdf?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF">
+                                            <img src="<?= base_url(); ?>/assets/img/icons/pdf.svg" alt="img">
+                                        </a>
+                                        <a href="<?= base_url('laporan-barang-keluar/export/excel?periode_awal=' . $laporan['periode_awal'] . '&periode_akhir=' . $laporan['periode_akhir']) ?>" data-bs-toggle="tooltip" data-bs-placement="top" title="Excel">
+                                            <img src="<?= base_url(); ?>/assets/img/icons/excel.svg" alt="img">
+                                        </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

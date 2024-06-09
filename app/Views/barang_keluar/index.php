@@ -88,7 +88,7 @@
                                     <td><?= $item['jumlah_keluar'] ?></td>
                                     <td><?= $item['tanggal_keluar'] ?></td>
                                     <td><?= $item['keterangan'] ?></td>
-                                    <td>
+                                    <td class="d-flex">
                                         <a class="me-3" href="<?= base_url('barang-keluar/edit/' . $item['id']) ?>">
                                             <img src="<?= base_url(); ?>/assets/img/icons/edit.svg" alt="img">
                                         </a>
