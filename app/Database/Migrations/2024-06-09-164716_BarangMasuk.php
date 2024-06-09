@@ -19,11 +19,19 @@ class BarangMasuk extends Migration
                 'type' => 'INT',
                 'unsigned' => true,
             ],
+            'kode_masuk' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'jumlah_masuk' => [
                 'type' => 'INT',
             ],
             'tanggal_masuk' => [
                 'type' => 'DATETIME',
+            ],
+            'keterangan' => [
+                'type' => 'TEXT',
+                'null' => true, // Keterangan bisa kosong
             ],
             'created_at' => [
                 'type' => 'DATETIME',

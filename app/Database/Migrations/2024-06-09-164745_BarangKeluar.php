@@ -19,11 +19,19 @@ class BarangKeluar extends Migration
                 'type' => 'INT',
                 'unsigned' => true,
             ],
+            'kode_keluar' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'jumlah_keluar' => [
                 'type' => 'INT',
             ],
             'tanggal_keluar' => [
                 'type' => 'DATETIME',
+            ],
+            'keterangan' => [
+                'type' => 'TEXT',
+                'null' => true, // Keterangan bisa kosong
             ],
             'created_at' => [
                 'type' => 'DATETIME',

@@ -9,13 +9,22 @@
                 <h6>Menambahkan Barang Masuk</h6>
             </div>
         </div>
-        
+
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="<?= base_url('barang-masuk/simpan') ?>" enctype="multipart/form-data">
                     <?= csrf_field() ?>
 
                     <div class="row">
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Kode Masuk</label>
+                                <input type="text" name="kode_masuk" class="form-control <?= isset($validation) && $validation->hasError('kode_masuk') ? 'is-invalid' : '' ?>" value="<?= old('kode_masuk') ?>" placeholder="Masukkan kode masuk">
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('kode_masuk') : '' ?>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Barang</label>
@@ -47,6 +56,12 @@
                                 <div class="invalid-feedback">
                                     <?= isset($validation) ? $validation->getError('tanggal_masuk') : '' ?>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea name="keterangan" class="form-control" placeholder="Masukkan keterangan (opsional)"><?= old('keterangan') ?></textarea>
                             </div>
                         </div>
 

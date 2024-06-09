@@ -38,6 +38,8 @@ class BarangKeluar extends BaseController
             'barang_id' => 'required|integer',
             'jumlah_keluar' => 'required|greater_than[0]',
             'tanggal_keluar' => 'required|valid_date[Y-m-d\TH:i]',
+            'kode_keluar' => 'required|alpha_numeric_space',
+            'keterangan' => 'permit_empty',
         ];
         $validationMessages = [
             'barang_id' => [
@@ -51,6 +53,10 @@ class BarangKeluar extends BaseController
             'tanggal_keluar' => [
                 'required' => 'Tanggal keluar harus diisi.',
                 'valid_date' => 'Format tanggal dan waktu tidak valid.',
+            ],
+            'kode_keluar' => [
+                'required' => 'Kode masuk harus diisi.',
+                'alpha_numeric_space' => 'Kode masuk hanya boleh berisi huruf, angka, dan spasi.',
             ],
         ];
 
@@ -81,6 +87,8 @@ class BarangKeluar extends BaseController
             'barang_id' => $barangId,
             'jumlah_keluar' => $jumlahKeluar,
             'tanggal_keluar' => $this->request->getPost('tanggal_keluar'),
+            'kode_keluar' => $this->request->getPost('kode_keluar'),
+            'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         $barangKeluarModel->save($data);
@@ -130,11 +138,14 @@ class BarangKeluar extends BaseController
             'barang_id' => 'required|integer',
             'jumlah_keluar' => 'required|greater_than[0]',
             'tanggal_keluar' => 'required|valid_date[Y-m-d\TH:i]',
+            'kode_keluar' => 'required|alpha_numeric_space',
+            'keterangan' => 'permit_empty',
         ];
         $validationMessages = [
             'barang_id' => [
                 'required' => 'Pilih barang yang keluar.',
                 'integer' => 'ID barang harus berupa angka.',
+                'exists' => 'Barang tidak ditemukan.',
             ],
             'jumlah_keluar' => [
                 'required' => 'Jumlah keluar harus diisi.',
@@ -144,26 +155,32 @@ class BarangKeluar extends BaseController
                 'required' => 'Tanggal keluar harus diisi.',
                 'valid_date' => 'Format tanggal dan waktu tidak valid.',
             ],
+            'kode_keluar' => [
+                'required' => 'Kode masuk harus diisi.',
+                'alpha_numeric_space' => 'Kode masuk hanya boleh berisi huruf, angka, dan spasi.',
+            ],
         ];
 
         if (!$this->validate($validationRules, $validationMessages)) {
             $data = [
                 'title' => 'Edit Barang Keluar',
-                'barangKeluar' => $barangKeluar,
+                'barangKeluar' => $barangKeluar, // Kirim kembali data barang keluar yang sedang diedit
                 'barang' => $barangModel->findAll(),
                 'validation' => $this->validator,
             ];
             return view('barang_keluar/edit', $data);
         }
+
         $barangId = $this->request->getPost('barang_id');
         $barang = $barangModel->find($barangId);
 
         // Validasi stok barang
         $jumlahKeluar = $this->request->getPost('jumlah_keluar');
-        if ($jumlahKeluar > $barang['stok']) {
+        if ($jumlahKeluar > $barang['stok'] + $barangKeluar['jumlah_keluar']) { // Tambahkan jumlah keluar lama saat validasi
             session()->setFlashdata('error', 'Stok tidak mencukupi.');
             $data = [
                 'title' => 'Edit Barang Keluar',
+                'barangKeluar' => $barangKeluar, // Kirim kembali data barang keluar yang sedang diedit
                 'barang' => $barangModel->findAll(),
                 'validation' => $this->validator,
             ];
@@ -171,22 +188,20 @@ class BarangKeluar extends BaseController
         }
 
         // Hitung selisih jumlah keluar
-        $jumlahKeluarLama = $barangKeluar['jumlah_keluar'];
-        $jumlahKeluarBaru = $this->request->getPost('jumlah_keluar');
-        $selisihJumlah = $jumlahKeluarBaru - $jumlahKeluarLama;
+        $selisihJumlah = $jumlahKeluar - $barangKeluar['jumlah_keluar'];
 
         $data = [
-            'barang_id' => $this->request->getPost('barang_id'),
-            'jumlah_keluar' => $jumlahKeluarBaru,
+            'barang_id' => $barangId,
+            'jumlah_keluar' => $jumlahKeluar,
             'tanggal_keluar' => $this->request->getPost('tanggal_keluar'),
+            'kode_keluar' => $this->request->getPost('kode_keluar'),
+            'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         $barangKeluarModel->update($id, $data);
 
         // Update stok barang
-        $barangId = $this->request->getPost('barang_id');
-        $barang = $barangModel->find($barangId);
-        $barang['stok'] -= $selisihJumlah; // Kurangi stok jika jumlah keluar bertambah
+        $barang['stok'] -= $selisihJumlah;
         $barangModel->save($barang);
 
         session()->setFlashdata('success', 'Barang keluar berhasil diperbarui.');
@@ -196,13 +211,19 @@ class BarangKeluar extends BaseController
         ];
         return view('barang_keluar/index', $data);
     }
+
     public function hapus($id)
     {
         $barangKeluarModel = new BarangKeluarModel();
         $barangModel = new BarangModel();
         $barangKeluar = $barangKeluarModel->find($id);
         if (!$barangKeluar) {
-            return redirect()->to('/barang-keluar')->with('error', 'Data barang keluar tidak ditemukan.');
+            session()->setFlashdata('error', 'Data barang keluar tidak ditemukan.');
+            $data = [
+                'title' => 'Barang Keluar',
+                'barangKeluar' => $barangKeluarModel->getBarangKeluar(),
+            ];
+            return view('barang_keluar/index', $data);
         }
 
         // Update stok barang sebelum menghapus barang keluar

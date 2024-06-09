@@ -37,6 +37,8 @@ class BarangMasuk extends BaseController
             'barang_id' => 'required|integer', // Memastikan barang_id valid dan ada di tabel barang
             'jumlah_masuk' => 'required|greater_than[0]', // Memastikan jumlah_masuk lebih dari 0
             'tanggal_masuk' => 'required|valid_date[Y-m-d\TH:i]', // Memastikan tanggal_masuk valid
+            'kode_masuk' => 'required|alpha_numeric_space',
+            'keterangan' => 'permit_empty', // Keterangan bersifat opsional
         ];
 
         $validationMessages = [
@@ -52,6 +54,10 @@ class BarangMasuk extends BaseController
                 'required' => 'Tanggal masuk harus diisi.',
                 'valid_date' => 'Format tanggal dan waktu tidak valid.',
             ],
+            'kode_masuk' => [
+                'required' => 'Kode masuk harus diisi.',
+                'alpha_numeric_space' => 'Kode masuk hanya boleh berisi huruf, angka, dan spasi.',
+            ],
         ];
 
         if (!$this->validate($validationRules, $validationMessages)) {
@@ -66,6 +72,8 @@ class BarangMasuk extends BaseController
             'barang_id' => $this->request->getPost('barang_id'),
             'jumlah_masuk' => $this->request->getPost('jumlah_masuk'),
             'tanggal_masuk' => $this->request->getPost('tanggal_masuk'),
+            'kode_masuk' => $this->request->getPost('kode_masuk'),
+            'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         $barangMasukModel->save($data);
@@ -81,8 +89,7 @@ class BarangMasuk extends BaseController
             'title' => 'Barang Masuk',
             'barangMasuk' => $barangMasukModel->getBarangMasuk(),
         ];
-        // Ambil data barang masuk setelah disimpan
-      
+
         return view('barang_masuk/index', $data); // Tampilkan view index setelah berhasil menyimpan data
     }
     public function edit($id)
@@ -114,10 +121,13 @@ class BarangMasuk extends BaseController
         }
 
         $validationRules = [
-            'barang_id' => 'required|integer',
-            'jumlah_masuk' => 'required|greater_than[0]',
-            'tanggal_masuk' => 'required|valid_date[Y-m-d\TH:i]',
+            'barang_id' => 'required|integer', // Memastikan barang_id valid dan ada di tabel barang
+            'jumlah_masuk' => 'required|greater_than[0]', // Memastikan jumlah_masuk lebih dari 0
+            'tanggal_masuk' => 'required|valid_date[Y-m-d\TH:i]', // Memastikan tanggal_masuk valid
+            'kode_masuk' => 'required|alpha_numeric_space',
+            'keterangan' => 'permit_empty', // Keterangan bersifat opsional
         ];
+
         $validationMessages = [
             'barang_id' => [
                 'required' => 'Pilih barang yang masuk.',
@@ -130,6 +140,10 @@ class BarangMasuk extends BaseController
             'tanggal_masuk' => [
                 'required' => 'Tanggal masuk harus diisi.',
                 'valid_date' => 'Format tanggal dan waktu tidak valid.',
+            ],
+            'kode_masuk' => [
+                'required' => 'Kode masuk harus diisi.',
+                'alpha_numeric_space' => 'Kode masuk hanya boleh berisi huruf, angka, dan spasi.',
             ],
         ];
         if (!$this->validate($validationRules, $validationMessages)) {
@@ -149,6 +163,8 @@ class BarangMasuk extends BaseController
             'barang_id' => $this->request->getPost('barang_id'),
             'jumlah_masuk' => $this->request->getPost('jumlah_masuk'),
             'tanggal_masuk' => $this->request->getPost('tanggal_masuk'),
+            'kode_masuk' => $this->request->getPost('kode_masuk'),
+            'keterangan' => $this->request->getPost('keterangan'),
         ];
 
         $barangMasukModel->update($id, $data);
@@ -160,7 +176,12 @@ class BarangMasuk extends BaseController
         $barangModel->save($barang);
 
         session()->setFlashdata('success', 'Barang masuk berhasil diperbarui.');
-        return redirect()->to('/barang-masuk');
+        $data = [
+            'title' => 'Barang Masuk',
+            'barangMasuk' => $barangMasukModel->getBarangMasuk(),
+        ];
+
+        return view('barang_masuk/index', $data);
     }
     public function hapus($id)
     {
@@ -169,7 +190,13 @@ class BarangMasuk extends BaseController
         $barangMasuk = $barangMasukModel->find($id);
 
         if (!$barangMasuk) {
-            return redirect()->to('/barang-masuk')->with('error', 'Data barang masuk tidak ditemukan.');
+            session()->setFlashdata('error', 'Data barang masuk tidak ditemukan.');
+            $data = [
+                'title' => 'Barang Masuk',
+                'barangMasuk' => $barangMasukModel->getBarangMasuk(),
+            ];
+
+            return view('barang_masuk/index', $data);
         }
 
         // Update stok barang sebelum menghapus barang masuk
@@ -188,5 +215,4 @@ class BarangMasuk extends BaseController
         ];
         return view('barang_masuk/index', $data);
     }
-
 }

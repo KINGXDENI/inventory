@@ -10,7 +10,7 @@ class BarangMasukModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $allowedFields    = ['barang_id', 'jumlah_masuk', 'tanggal_masuk'];
+    protected $allowedFields = ['barang_id', 'jumlah_masuk', 'tanggal_masuk', 'kode_masuk', 'keterangan'];
     protected $useTimestamps    = true;
 
     public function getBarangMasuk()
