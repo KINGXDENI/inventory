@@ -165,14 +165,13 @@ class LaporanBarangKeluar extends BaseController
         $dompdf->loadHtml(view('laporan_barang_keluar/pdf', $data));
         $dompdf->setPaper('A4', 'landscape'); // Opsional, sesuaikan ukuran kertas dan orientasi
         $dompdf->render();
-
-        // Tambahkan header untuk memaksa unduhan
-        $filename = 'laporan_barang_keluar.pdf';
-        header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
-        header('Cache-Control: max-age=0');
-
-        $dompdf->stream($filename, ['Attachment' => 1]); // 1 untuk download, 0 untuk menampilkan di browser
+         $stream=TRUE;
+        if ($stream) {
+            $dompdf->stream('laporan_barang_keluar' . ".pdf", array("Attachment" => 0));
+            exit();
+        } else {
+            return $dompdf->output();
+        }
     }
 
 
