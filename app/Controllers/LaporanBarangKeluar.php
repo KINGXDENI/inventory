@@ -165,7 +165,14 @@ class LaporanBarangKeluar extends BaseController
         $dompdf->loadHtml(view('laporan_barang_keluar/pdf', $data));
         $dompdf->setPaper('A4', 'landscape'); // Opsional, sesuaikan ukuran kertas dan orientasi
         $dompdf->render();
-        $dompdf->stream('laporan_barang_keluar.pdf');
+
+        // Tambahkan header untuk memaksa unduhan
+        $filename = 'laporan_barang_keluar.pdf';
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $dompdf->stream($filename, ['Attachment' => 1]); // 1 untuk download, 0 untuk menampilkan di browser
     }
 
 
@@ -238,10 +245,12 @@ class LaporanBarangKeluar extends BaseController
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
-        $writer = new Xlsx($spreadsheet);
+        $filename = 'laporan_barang_keluar.xlsx';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="laporan_barang_keluar.xlsx"');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
-
 }

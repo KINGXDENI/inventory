@@ -161,7 +161,14 @@ class LaporanBarangMasuk extends BaseController
         $dompdf->loadHtml(view('laporan_barang_masuk/pdf', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        $dompdf->stream('laporan_barang_masuk.pdf');
+
+        // Tambahkan header untuk memaksa unduhan
+        $filename = 'laporan_barang_masuk.pdf';
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $dompdf->stream($filename, ['Attachment' => 1]); // 1 untuk download, 0 untuk menampilkan di browser
     }
 
     public function exportExcel()
@@ -230,9 +237,12 @@ class LaporanBarangMasuk extends BaseController
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
-        $writer = new Xlsx($spreadsheet);
+        $filename = 'laporan_barang_masuk.xlsx';
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="laporan_barang_masuk.xlsx"');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        $writer = new Xlsx($spreadsheet);
         $writer->save('php://output');
     }
 }
