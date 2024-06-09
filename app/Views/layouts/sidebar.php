@@ -3,7 +3,7 @@
         <div id="sidebar-menu" class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="/"><img src="<?= base_url('assets/img/icons/dashboard.svg') ?>" alt="img"><span> Dashboard</span> </a>
+                    <a href="/"><i data-feather="home"></i><span> Dashboard</span> </a>
                 </li>
                 <li>
                     <a href="/barang"><img src="<?= base_url('assets/img/icons/product.svg') ?>" alt="img"><span> Daftar Barang</span> </a>
