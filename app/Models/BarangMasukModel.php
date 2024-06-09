@@ -12,4 +12,12 @@ class BarangMasukModel extends Model
     protected $returnType       = 'array';
     protected $allowedFields    = ['barang_id', 'jumlah_masuk', 'tanggal_masuk'];
     protected $useTimestamps    = true;
+
+    public function getBarangMasuk()
+    {
+        return $this->select('barang_masuk.*, barang.nama_barang')
+        ->join('barang', 'barang.id = barang_masuk.barang_id')
+        ->findAll();
+    }
 }
+

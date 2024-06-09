@@ -15,10 +15,9 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/animate.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/dataTables.bootstrap4.min.css">
-
+    <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/plugins/fontawesome/css/all.min.css">
-
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
     <script src="<?= base_url(); ?>/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 </head>
@@ -124,6 +123,8 @@
         <script src="<?= base_url(); ?>/assets/plugins/apexchart/chart-data.js"></script>
         <script src="<?= base_url(); ?>/assets/plugins/select2/js/select2.min.js"></script>
         <script src="<?= base_url(); ?>/assets/js/script.js"></script>
+        <script src="<?= base_url(); ?>/assets/js/moment.min.js"></script>
+        <script src="<?= base_url(); ?>/assets/js/bootstrap-datetimepicker.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const currentUrl = window.location.pathname;
@@ -132,8 +133,8 @@
                 menuItems.forEach(item => {
                     const href = item.getAttribute('href');
 
-                    // Periksa apakah URL saat ini sama persis dengan href item menu, atau apakah dimulai dengan href item menu (kecuali jika href adalah "/")
-                    if (currentUrl === href || (currentUrl.startsWith(href) && href !== '/')) {
+                    // Periksa apakah URL saat ini sama persis dengan href item menu, atau apakah dimulai dengan href item menu (disesuaikan dengan "/barang-masuk")
+                    if (currentUrl === href || currentUrl.startsWith(href + '/') || (href === '/barang-masuk' && currentUrl.startsWith('/barang-masuk'))) {
                         item.parentElement.classList.add('active');
                     }
                 });

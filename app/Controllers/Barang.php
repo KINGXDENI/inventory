@@ -190,7 +190,8 @@ class Barang extends BaseController
             'title' => 'Data Barang', // Judul halaman
             'barang' => $barangModel->findAll(),
         ];
-        return redirect()->to('/barang')->with('barang', $data); 
+
+        return view('barang/barang', $data);
     }
 
     public function delete($id)
@@ -209,11 +210,12 @@ class Barang extends BaseController
         $barangModel->delete($id);
 
         session()->setFlashdata('success', 'Barang berhasil dihapus.');
-        $data = [
+         $data = [
             'title' => 'Data Barang', // Judul halaman
             'barang' => $barangModel->findAll(),
         ];
-        return redirect()->to('/barang')->with('barang', $data); 
+
+        return view('barang/barang', $data);
     }
 
 }
