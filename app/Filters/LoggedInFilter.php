@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class JabatanFilter implements FilterInterface
+class LoggedInFilter implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,33 +25,9 @@ class JabatanFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->has('isLoggedIn')) {
-            return redirect()->to('/login'); // Perhatikan, tidak ada '/' sebelum 'login'
+        if (session()->has('isLoggedIn')) {
+            return redirect()->back();
         }
-        
-        // Ambil jabatan user
-        $role = session()->get('pengguna')['jabatan']; // Misalnya 'admin' atau 'manager'
-
-        // Halaman yang hanya bisa diakses oleh manager
-        $managerOnlyPages = [
-            'laporan', 'login', 'logout'
-        ];
-
-
-        // Cek URL saat ini
-        $uri = service('uri');
-        $segment = $uri->getSegment(1); // Ambil segmen pertama dari URL
-
-        // Cek akses berdasarkan role
-        if ($role == 'manager' && !in_array($segment, $managerOnlyPages)) {
-            return redirect()->to('/laporan'); // Redirect ke halaman yang diizinkan
-        }
-
-        if ($role == 'admin') {
-            // Admin memiliki akses penuh
-            return;
-        }
-
     }
 
     /**
