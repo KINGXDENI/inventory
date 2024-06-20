@@ -116,6 +116,18 @@ class LaporanUmum extends BaseController
             }
             $dataLaporan = $this->barangKeluarModel->getLaporanBarangKeluar();
         }
+        if (empty($dataLaporan)) {
+            session()->setFlashdata('error', 'Data tidak ditemukan di database untuk periode dan jenis laporan yang dipilih.');
+            $data = [
+                'title' => 'Laporan Umum',
+                'barang' => $barangModel->findAll(),
+                'jenisLaporan' => $jenisLaporan,
+                'periodeAwal' => $periodeAwal,
+                'periodeAkhir' => $periodeAkhir,
+                'barangId' => $barangId, // Pertahankan nilai barang_id yang dipilih
+            ];
+            return view('laporan/index', $data);
+        }
         session()->setFlashdata('success', 'Laporan berhasil dibuat.');
         $data = [
             'title' => 'Laporan Barang ' . ucfirst($jenisLaporan),

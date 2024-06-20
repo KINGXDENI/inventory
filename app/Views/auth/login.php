@@ -16,10 +16,35 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/style.css">
+    <script src="<?= base_url(); ?>/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="account-page">
+    <?php if (session()->has('success')) : ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: '<?= session('success') ?>',
+                timer: 1000,
+            }).then(() => {
+                <?php session()->remove('success'); ?> // Hapus pesan sukses setelah ditampilkan
+            });
+        </script>
+    <?php endif; ?>
 
+    <?php if (session()->has('error')) : ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '<?= session('error') ?>',
+                timer: 1000,
+            }).then(() => {
+                <?php session()->remove('error'); ?> // Hapus pesan error setelah ditampilkan
+            });
+        </script>
+    <?php endif; ?>
     <div class="main-wrapper">
         <div class="account-content">
             <div class="login-wrapper">

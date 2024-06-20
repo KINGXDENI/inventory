@@ -8,15 +8,15 @@
                 <h4>Laporan Umum</h4>
             </div>
         </div>
-
         <?php if (session()->has('success')) : ?>
             <script>
                 Swal.fire({
                     icon: 'success',
                     title: 'Sukses!',
                     text: '<?= session('success') ?>',
-                    timer: 1500,
-                    showConfirmButton: false
+                    timer: 1000,
+                }).then(() => {
+                    <?php session()->remove('success'); ?> // Hapus pesan sukses setelah ditampilkan
                 });
             </script>
         <?php endif; ?>
@@ -27,12 +27,12 @@
                     icon: 'error',
                     title: 'Gagal!',
                     text: '<?= session('error') ?>',
-                    timer: 1500,
-                    showConfirmButton: false
+                    timer: 1000,
+                }).then(() => {
+                    <?php session()->remove('error'); ?> // Hapus pesan error setelah ditampilkan
                 });
             </script>
         <?php endif; ?>
-
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="<?= base_url('laporan/generate') ?>">
