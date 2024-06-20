@@ -12,4 +12,5 @@ class BarangModel extends Model
     protected $returnType       = 'array';
     protected $allowedFields    = ['kode_barang', 'nama_barang', 'deskripsi', 'foto', 'stok'];
     protected $useTimestamps    = true;
+    
 }

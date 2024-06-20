@@ -19,10 +19,7 @@
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Kode Masuk</label>
-                                <input type="text" name="kode_masuk" class="form-control <?= isset($validation) && $validation->hasError('kode_masuk') ? 'is-invalid' : '' ?>" value="<?= old('kode_masuk') ?>" placeholder="Masukkan kode masuk">
-                                <div class="invalid-feedback">
-                                    <?= isset($validation) ? $validation->getError('kode_masuk') : '' ?>
-                                </div>
+                                <input type="text" name="kode_masuk" class="form-control" value="<?= $kodeMasuk; ?>" readonly>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">

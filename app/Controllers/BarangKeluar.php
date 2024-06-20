@@ -22,9 +22,20 @@ class BarangKeluar extends BaseController
     {
         $barangKeluarModel = new BarangKeluarModel();
         $barangModel = new BarangModel();
+        $lastBarang = $barangKeluarModel->like('kode_keluar', 'BK-', 'after')->orderBy('kode_keluar', 'desc')->first();
+
+        if ($lastBarang) {
+            $lastNoUrut = (int) substr($lastBarang['kode_keluar'], 3); // Ambil nomor urut (integer)
+            $noUrut = $lastNoUrut + 1;
+        } else {
+            $noUrut = 1; // Jika belum ada barang, mulai dari 1
+        }
+
+        $newKode = 'BK-' . sprintf('%03d', $noUrut);
         $data = [
             'title' => 'Tambah Barang Keluar',
             'barang' => $barangModel->findAll(),
+            'kodeKeluar'=> $newKode,
             'validation' => \Config\Services::validation(),
         ];
         return view('barang_keluar/tambah', $data);
@@ -38,7 +49,6 @@ class BarangKeluar extends BaseController
             'barang_id' => 'required|integer',
             'jumlah_keluar' => 'required|greater_than[0]',
             'tanggal_keluar' => 'required|valid_date[Y-m-d\TH:i]',
-            'kode_keluar' => 'required|alpha_numeric_space',
             'keterangan' => 'permit_empty',
         ];
         $validationMessages = [
@@ -53,10 +63,6 @@ class BarangKeluar extends BaseController
             'tanggal_keluar' => [
                 'required' => 'Tanggal keluar harus diisi.',
                 'valid_date' => 'Format tanggal dan waktu tidak valid.',
-            ],
-            'kode_keluar' => [
-                'required' => 'Kode masuk harus diisi.',
-                'alpha_numeric_space' => 'Kode masuk hanya boleh berisi huruf, angka, dan spasi.',
             ],
         ];
 
@@ -98,11 +104,7 @@ class BarangKeluar extends BaseController
         $barangModel->save($barang);
 
         session()->setFlashdata('success', 'Barang keluar berhasil ditambahkan.');
-        $data = [
-            'title' => 'Barang Keluar',
-            'barangKeluar' => $barangKeluarModel->getBarangKeluar(),
-        ];
-        return view('barang_keluar/index', $data);
+        return redirect()->to('/barang_keluar');
     }
 
     public function edit($id)
@@ -205,11 +207,7 @@ class BarangKeluar extends BaseController
         $barangModel->save($barang);
 
         session()->setFlashdata('success', 'Barang keluar berhasil diperbarui.');
-        $data = [
-            'title' => 'Barang Keluar',
-            'barangKeluar' => $barangKeluarModel->getBarangKeluar(),
-        ];
-        return view('barang_keluar/index', $data);
+        return redirect()->to('/barang_keluar');
     }
 
     public function hapus($id)
@@ -236,10 +234,6 @@ class BarangKeluar extends BaseController
         $barangKeluarModel->delete($id);
 
         session()->setFlashdata('success', 'Data barang keluar berhasil dihapus.');
-        $data = [
-            'title' => 'Barang Keluar',
-            'barangKeluar' => $barangKeluarModel->getBarangKeluar(),
-        ];
-        return view('barang_keluar/index', $data);
+        return redirect()->to('/barang_keluar');
     }
 }

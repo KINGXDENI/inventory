@@ -43,10 +43,7 @@
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Kode Keluar</label>
-                                <input type="text" name="kode_keluar" class="form-control <?= isset($validation) && $validation->hasError('kode_keluar') ? 'is-invalid' : '' ?>" value="<?= old('kode_keluar') ?>" placeholder="Masukkan kode keluar">
-                                <div class="invalid-feedback">
-                                    <?= isset($validation) ? $validation->getError('kode_keluar') : '' ?>
-                                </div>
+                                <input type="text" name="kode_keluar" class="form-control" value="<?= $kodeKeluar; ?>" readonly>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">

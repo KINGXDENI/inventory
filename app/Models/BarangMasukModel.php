@@ -19,5 +19,27 @@ class BarangMasukModel extends Model
         ->join('barang', 'barang.id = barang_masuk.barang_id')
         ->findAll();
     }
+
+    public function getLaporanBarangMasuk($periodeAwal = null, $periodeAkhir = null, $barangId = null)
+    {
+        $builder = $this->select('barang_masuk.*, barang.nama_barang')
+            ->join('barang', 'barang.id = barang_masuk.barang_id');
+
+        if ($periodeAwal) {
+            $builder->where('DATE(barang_masuk.tanggal_masuk) >=', $periodeAwal);
+        }
+
+        if ($periodeAkhir) {
+            $builder->where('DATE(barang_masuk.tanggal_masuk) <=', $periodeAkhir);
+        }
+
+        if (!empty($barangId)) { // Filter hanya jika $barangId tidak kosong
+            $builder->where('barang_masuk.barang_id', $barangId);
+        }
+
+        return $builder->findAll();
+    }
+
+
 }
 

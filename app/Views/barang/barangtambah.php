@@ -17,10 +17,7 @@
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Kode Barang</label>
-                                <input type="text" name="kode_barang" class="form-control <?= isset($validation) && $validation->hasError('kode_barang') ? 'is-invalid' : '' ?>" value="<?= old('kode_barang') ?>">
-                                <div class="invalid-feedback">
-                                    <?= isset($validation) ? $validation->getError('kode_barang') : '' ?>
-                                </div>
+                                <input type="text" name="kode_barang" class="form-control" value="<?= $kodeBarang; ?>" readonly>
                             </div>
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">

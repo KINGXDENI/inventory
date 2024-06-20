@@ -38,27 +38,37 @@ class Barang extends BaseController
     }
     public function tambahbarang()
     {
+        $barangModel = new BarangModel();
 
+        // Ambil data barang terakhir yang memiliki kode_barang sesuai format
+        $lastBarang = $barangModel->like('kode_barang', 'BR-', 'after')->orderBy('kode_barang', 'desc')->first();
+
+        if ($lastBarang) {
+            $lastNoUrut = (int) substr($lastBarang['kode_barang'], 3); // Ambil nomor urut (integer)
+            $noUrut = $lastNoUrut + 1;
+        } else {
+            $noUrut = 1; // Jika belum ada barang, mulai dari 1
+        }
+
+        $newKode = 'BR-' . sprintf('%03d', $noUrut);
         $data = [
-            'title' => 'Tambah Barang',
-        ];
+                'title' => 'Tambah Barang',
+                'kodeBarang' => $newKode,
+                'validation' => \Config\Services::validation(),
+            ];
+
         return view('barang/barangtambah', $data);
     }
+
     public function simpan()
     {
         $validationRules = [
-            'kode_barang' => 'required|alpha_numeric_space|is_unique[barang.kode_barang]',
             'nama_barang' => 'required',
             'deskripsi' => 'required',
             // Tambahkan aturan validasi lainnya sesuai kebutuhan
             'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]|max_size[foto,2048]',
         ];
         $validationMessages = [
-            'kode_barang' => [
-                'required' => 'Kode barang harus diisi.',
-                'alpha_numeric_space' => 'Kode barang hanya boleh berisi huruf, angka, dan spasi.',
-                'is_unique' => 'Kode barang sudah digunakan.',
-            ],
             'nama_barang' => [
                 'required' => 'Nama barang harus diisi.',
             ],
@@ -94,14 +104,7 @@ class Barang extends BaseController
 
             $barangModel->save($data);
             session()->setFlashdata('success', 'Barang berhasil ditambahkan.');
-            $barangModel = new BarangModel();
-
-            $data = [
-                'title' => 'Data Barang', // Judul halaman
-                'barang' => $barangModel->findAll(),
-            ];
-
-            return view('barang/barang', $data);
+            return redirect()->to('/barang');
         } else {
             session()->setFlashdata('error', 'Gagal mengupload gambar.');
             $data = [
@@ -190,12 +193,7 @@ class Barang extends BaseController
         $barangModel->update($id, $data);
 
         session()->setFlashdata('success', 'Barang berhasil diperbarui.');
-        $data = [
-            'title' => 'Data Barang', // Judul halaman
-            'barang' => $barangModel->findAll(),
-        ];
-
-        return view('barang/barang', $data);
+        return redirect()->to('/barang');
     }
 
     public function delete($id)
@@ -220,12 +218,7 @@ class Barang extends BaseController
         $barangModel->delete($id);
 
         session()->setFlashdata('success', 'Barang berhasil dihapus.');
-         $data = [
-            'title' => 'Data Barang', // Judul halaman
-            'barang' => $barangModel->findAll(),
-        ];
-
-        return view('barang/barang', $data);
+        return redirect()->to('/barang');
     }
 
 }

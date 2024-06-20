@@ -41,31 +41,18 @@
             <div class="card-body">
                 <div class="table-top">
                     <div class="search-set">
-                        <div class="search-path">
+                        <!-- <div class="search-path">
                             <a class="btn btn-filter" id="filter_search">
                                 <img src="<?= base_url(); ?>/assets/img/icons/filter.svg" alt="img">
                                 <span><img src="<?= base_url(); ?>/assets/img/icons/closes.svg" alt="img"></span>
                             </a>
-                        </div>
+                        </div> -->
                         <div class="search-input">
                             <a class="btn btn-searchset"><img src="<?= base_url(); ?>/assets/img/icons/search-white.svg" alt="img"></a>
                         </div>
-                    </div>
-                    <div class="wordset">
-                        <ul>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="<?= base_url(); ?>/assets/img/icons/pdf.svg" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="<?= base_url(); ?>/assets/img/icons/excel.svg" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="<?= base_url(); ?>/assets/img/icons/printer.svg" alt="img"></a>
-                            </li>
-                        </ul>
-                    </div>
+                    </div>                
                 </div>
-
+<!-- 
                 <div class="card mb-0" id="filter_inputs">
                     <div class="card-body pb-0">
                         <div class="row">
@@ -106,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="table-responsive">
                     <table class="table  datanew">
