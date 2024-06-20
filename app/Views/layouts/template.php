@@ -42,9 +42,6 @@
                 <a href="/" class="logo">
                     <img src="<?= base_url(); ?>/assets/img/logo.png" alt="">
                 </a>
-                <a href="/" class="logo-small">
-                    <img src="<?= base_url(); ?>/assets/img/logo-small.png" alt="">
-                </a>
                 <a id="toggle_btn" href="javascript:void(0);">
                 </a>
             </div>
