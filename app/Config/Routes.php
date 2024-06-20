@@ -11,7 +11,8 @@ $routes->get('/login', 'AuthController::login');
 $routes->post('/loginProcess', 'AuthController::loginProcess');
 $routes->get('/logout', 'AuthController::logout');
 
-//barang
+$routes->group('', ['filter' => 'jabatanFilter'], function ($routes) {
+   //barang
 $routes->get('/', 'Barang::index');
 $routes->get('/barang', 'Barang::barang');
 $routes->get('/barang/tambah', 'Barang::tambahbarang');
@@ -42,9 +43,4 @@ $routes->post('/laporan/generate', 'LaporanUmum::generate');
 $routes->get('/laporan/export/pdf', 'LaporanUmum::exportPdf');
 $routes->get('/laporan/export/excel', 'LaporanUmum::exportExcel');
 
-
-
-
-
-
-
+});
