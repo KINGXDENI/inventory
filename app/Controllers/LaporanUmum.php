@@ -175,11 +175,19 @@ class LaporanUmum extends BaseController
             'total' => $total,
         ];
 
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml(view('laporan/pdf', $data));
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf = new Dompdf(['isHtml5ParserEnabled' => true]);
+        $dompdf->loadHtml(view("laporan_barang_{$jenisLaporan}/pdf", $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-        $dompdf->stream("laporan_barang_{$jenisLaporan}.pdf");
+
+        $stream = TRUE;
+        if ($stream) {
+            $dompdf->stream("laporan_barang_{$jenisLaporan}" . ".pdf", array("Attachment" => 0));
+            exit();
+        } else {
+            return $dompdf->output();
+        }
     }
 
     public function exportExcel()
