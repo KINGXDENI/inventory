@@ -177,7 +177,7 @@ class LaporanUmum extends BaseController
 
         $dompdf = new \Dompdf\Dompdf();
         $dompdf = new Dompdf(['isHtml5ParserEnabled' => true]);
-        $dompdf->loadHtml(view("laporan_barang_{$jenisLaporan}/pdf", $data));
+        $dompdf->loadHtml(view('laporan/pdf', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
