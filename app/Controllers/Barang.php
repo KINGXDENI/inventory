@@ -198,6 +198,8 @@ class Barang extends BaseController
 
     public function delete($id)
     {
+        $barangMasukModel = new BarangMasukModel();
+        $barangKeluarModel = new BarangKeluarModel();
         $barangModel = new BarangModel();
         $barang = $barangModel->find($id);
         if (!$barang) {
@@ -215,7 +217,8 @@ class Barang extends BaseController
         if ($barang['foto'] && file_exists('public/barangimg/' . $barang['foto'])) {
             unlink('public/barangimg/' . $barang['foto']);
         }
-
+        $barangKeluarModel->where('barang_id', $id)->delete();
+        $barangMasukModel->where('barang_id', $id)->delete();
         $barangModel->delete($id);
 
         session()->setFlashdata('success', 'Barang berhasil dihapus.');
