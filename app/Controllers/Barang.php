@@ -211,7 +211,8 @@ class Barang extends BaseController
         }
 
         // Hapus foto jika ada
-        if ($barang['foto'] && file_exists('barangimg/' . $barang['foto'])) {
+
+        if ($barang['foto'] && file_exists('public/barangimg/' . $barang['foto'])) {
             unlink('public/barangimg/' . $barang['foto']);
         }
 
