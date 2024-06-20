@@ -92,7 +92,7 @@ class BarangMasuk extends BaseController
         $barangModel->save($barang);
 
         session()->setFlashdata('success', 'Barang masuk berhasil ditambahkan.');
-        return redirect()->to('/barang_masuk');
+        return redirect()->to('/barang-masuk');
     }
     public function edit($id)
     {
@@ -178,7 +178,7 @@ class BarangMasuk extends BaseController
         $barangModel->save($barang);
 
         session()->setFlashdata('success', 'Barang masuk berhasil diperbarui.');
-        return redirect()->to('/barang_masuk');
+        return redirect()->to('/barang-masuk');
     }
     public function hapus($id)
     {
@@ -206,6 +206,6 @@ class BarangMasuk extends BaseController
         $barangMasukModel->delete($id);
 
         session()->setFlashdata('success', 'Data barang masuk berhasil dihapus.');
-        return redirect()->to('/barang_masuk');
+        return redirect()->to('/barang-masuk');
     }
 }
