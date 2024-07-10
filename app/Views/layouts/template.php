@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title><?= $title; ?></title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url(); ?>/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url(); ?>/assets/img/favicon1.png">
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/bootstrap.min.css">
 
@@ -40,7 +40,7 @@
 
             <div class="header-left active pt-2">
                 <a href="/" class="logo">
-                    <img src="<?= base_url(); ?>/assets/img/logo.png" alt="">
+                    <img src="<?= base_url(); ?>/assets/img/logo1.png" alt="">
                 </a>
                 <a id="toggle_btn" href="javascript:void(0);">
                 </a>

@@ -8,7 +8,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title><?= $title; ?></title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url(); ?>/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url(); ?>/assets/img/favicon1.png">
 
     <link rel="stylesheet" href="<?= base_url(); ?>/assets/css/bootstrap.min.css">
 
@@ -51,7 +51,7 @@
                 <div class="login-content">
                     <div class="login-userset">
                         <div class="login-logo">
-                            <img src="<?= base_url(); ?>assets/img/logo.png" alt="img">
+                            <img src="<?= base_url(); ?>assets/img/logo1.png" alt="img">
                         </div>
                         <div class="login-userheading">
                             <h2><?= $title; ?></h2>
