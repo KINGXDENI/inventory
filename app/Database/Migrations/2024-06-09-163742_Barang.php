@@ -23,14 +23,28 @@ class Barang extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
+            'merek' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255, 
+                'null'       => true,
+            ],
             'deskripsi' => [
                 'type' => 'TEXT',
-                'null' => true, 
+                'null' => true,
             ],
             'stok' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'default' => 0,
+            ],
+            'berat' => [
+                'type'       => 'FLOAT',
+                'null'       => false,
+            ],
+            'satuan' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 50,
+                'null'       => false,
             ],
             'foto' => [
                 'type' => 'VARCHAR',

@@ -41,12 +41,12 @@
             <div class="card-body">
                 <div class="table-top">
                     <div class="search-set">
-                        
+
                         <div class="search-input">
                             <a class="btn btn-searchset"><img src="<?= base_url(); ?>/assets/img/icons/search-white.svg" alt="img"></a>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="table-responsive">
                     <table class="table datanew">
@@ -84,6 +84,7 @@
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>

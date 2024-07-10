@@ -50,9 +50,9 @@
                         <div class="search-input">
                             <a class="btn btn-searchset"><img src="<?= base_url(); ?>/assets/img/icons/search-white.svg" alt="img"></a>
                         </div>
-                    </div>                
+                    </div>
                 </div>
-<!-- 
+                <!-- 
                 <div class="card mb-0" id="filter_inputs">
                     <div class="card-body pb-0">
                         <div class="row">
@@ -96,13 +96,16 @@
                 </div> -->
 
                 <div class="table-responsive">
-                    <table class="table  datanew">
+                    <table class="table datanew">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Nama Barang</th>
                                 <th>Kode Barang</th>
+                                <th>Merek</th>
                                 <th>Stok</th>
+                                <th>Berat</th>
+                                <th>Satuan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -118,16 +121,16 @@
                                         <a href="javascript:void(0);"><?= $item['nama_barang'] ?></a>
                                     </td>
                                     <td><?= $item['kode_barang'] ?></td>
+                                    <td><?= $item['merek'] ?></td>
                                     <td><?= $item['stok'] ?></td>
+                                    <td><?= $item['berat'] ?></td>
+                                    <td><?= $item['satuan'] ?></td>
                                     <td class="d-flex">
-                                        <!-- <a class="me-3" href="product-details.html">
-                                            <img src="<?= base_url(); ?>/assets/img/icons/eye.svg" alt="img">
-                                        </a> -->
                                         <a class="me-3" href="/barang/edit/<?= $item['id'] ?>">
-                                            <img src="<?= base_url(); ?>/assets/img/icons/edit.svg" alt="img">
+                                            <img src="<?= base_url(); ?>/assets/img/icons/edit.svg" alt="Edit">
                                         </a>
                                         <a class="delete-barang" href="javascript:void(0);" data-id="<?= $item['id'] ?>">
-                                            <img src="<?= base_url(); ?>/assets/img/icons/delete.svg" alt="img">
+                                            <img src="<?= base_url(); ?>/assets/img/icons/delete.svg" alt="Delete">
                                         </a>
                                     </td>
                                 </tr>
@@ -135,6 +138,8 @@
                         </tbody>
                     </table>
                 </div>
+
+
             </div>
         </div>
 

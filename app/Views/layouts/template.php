@@ -100,9 +100,9 @@
                                     </div>
                                 </div>
                                 <hr class="m-0">
-                                <a class="dropdown-item" href="profile.html">
+                                <!-- <a class="dropdown-item" href="profile.html">
                                     <i class="me-2" data-feather="user"></i> My Profile
-                                </a>
+                                </a> -->
                                 <a class="dropdown-item logout pb-0" href="/logout">
                                     <img src="<?= base_url(); ?>/assets/img/icons/log-out.svg" class="me-2" alt="img">Logout
                                 </a>

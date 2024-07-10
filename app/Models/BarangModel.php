@@ -10,7 +10,6 @@ class BarangModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $allowedFields    = ['kode_barang', 'nama_barang', 'deskripsi', 'foto', 'stok'];
-    protected $useTimestamps    = true;
-    
+    protected $allowedFields    = ['kode_barang', 'nama_barang', 'merek', 'deskripsi', 'foto', 'stok', 'berat', 'satuan'];
+    protected $useTtimestamps   = true;
 }

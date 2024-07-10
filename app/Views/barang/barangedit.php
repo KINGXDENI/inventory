@@ -19,7 +19,7 @@
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Kode Barang</label>
-                                <input type="text" name="kode_barang" class="form-control <?= isset($validation) && $validation->hasError('kode_barang') ? 'is-invalid' : '' ?>" value="<?= old('kode_barang', $barang['kode_barang']) ?>">
+                                <input type="text" name="kode_barang" class="form-control <?= isset($validation) && $validation->hasError('kode_barang') ? 'is-invalid' : '' ?>" value="<?= old('kode_barang', $barang['kode_barang']) ?>" readonly>
                                 <div class="invalid-feedback">
                                     <?= isset($validation) ? $validation->getError('kode_barang') : '' ?>
                                 </div>
@@ -40,6 +40,39 @@
                                 <input type="number" name="stok" class="form-control <?= isset($validation) && $validation->hasError('stok') ? 'is-invalid' : '' ?>" value="<?= old('stok', $barang['stok']) ?>">
                                 <div class="invalid-feedback">
                                     <?= isset($validation) ? $validation->getError('stok') : '' ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Berat</label>
+                                <input type="number" name="berat" step="0.01" class="form-control <?= isset($validation) && $validation->hasError('berat') ? 'is-invalid' : '' ?>" value="<?= old('berat', $barang['berat']) ?>">
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('berat') : '' ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Satuan</label>
+                                <select name="satuan" class="form-control <?= isset($validation) && $validation->hasError('satuan') ? 'is-invalid' : '' ?>">
+                                    <option value="">Pilih Satuan</option>
+                                    <option value="kg" <?= old('satuan', $barang['satuan']) == 'kg' ? 'selected' : '' ?>>Kilogram (kg)</option>
+                                    <option value="g" <?= old('satuan', $barang['satuan']) == 'g' ? 'selected' : '' ?>>Gram (g)</option>
+                                    <option value="ltr" <?= old('satuan', $barang['satuan']) == 'ltr' ? 'selected' : '' ?>>Liter (ltr)</option>
+                                    <option value="pcs" <?= old('satuan', $barang['satuan']) == 'pcs' ? 'selected' : '' ?>>Pieces (pcs)</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('satuan') : '' ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Merek</label>
+                                <input type="text" name="merek" class="form-control <?= isset($validation) && $validation->hasError('merek') ? 'is-invalid' : '' ?>" value="<?= old('merek', $barang['merek']) ?>">
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('merek') : '' ?>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +104,8 @@
                         </div>
                     </div>
                 </form>
+
+
             </div>
         </div>
     </div>

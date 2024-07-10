@@ -38,6 +38,39 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Berat</label>
+                                <input type="number" name="berat" step="0.01" class="form-control <?= isset($validation) && $validation->hasError('berat') ? 'is-invalid' : '' ?>" value="<?= old('berat') ?>">
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('berat') : '' ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Satuan</label>
+                                <select name="satuan" class="form-control <?= isset($validation) && $validation->hasError('satuan') ? 'is-invalid' : '' ?>">
+                                    <option value="">Pilih Satuan</option>
+                                    <option value="kg" <?= old('satuan') == 'kg' ? 'selected' : '' ?>>Kilogram (kg)</option>
+                                    <option value="g" <?= old('satuan') == 'g' ? 'selected' : '' ?>>Gram (g)</option>
+                                    <option value="ltr" <?= old('satuan') == 'ltr' ? 'selected' : '' ?>>Liter (ltr)</option>
+                                    <option value="pcs" <?= old('satuan') == 'pcs' ? 'selected' : '' ?>>Pieces (pcs)</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('satuan') : '' ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Merek</label>
+                                <input type="text" name="merek" class="form-control <?= isset($validation) && $validation->hasError('merek') ? 'is-invalid' : '' ?>" value="<?= old('merek') ?>">
+                                <div class="invalid-feedback">
+                                    <?= isset($validation) ? $validation->getError('merek') : '' ?>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label>Deskripsi</label>
@@ -53,13 +86,15 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                             <a href="<?= base_url('barang') ?>" class="btn btn-cancel">Cancel</a>
                         </div>
                     </div>
                 </form>
+
+
+
             </div>
         </div>
     </div>

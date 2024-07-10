@@ -45,18 +45,20 @@ class BarangKeluar extends BaseController
     {
         $barangKeluarModel = new BarangKeluarModel();
         $barangModel = new BarangModel();
+
         $validationRules = [
-            'barang_id' => 'required|integer',
-            'jumlah_keluar' => 'required|greater_than[0]',
+            'barang_id.*' => 'required|integer',
+            'jumlah_keluar.*' => 'required|greater_than[0]',
             'tanggal_keluar' => 'required|valid_date[Y-m-d\TH:i]',
-            'keterangan' => 'permit_empty',
+            'keterangan.*' => 'permit_empty',
         ];
+
         $validationMessages = [
-            'barang_id' => [
+            'barang_id.*' => [
                 'required' => 'Pilih barang yang keluar.',
                 'integer' => 'ID barang harus berupa angka.',
             ],
-            'jumlah_keluar' => [
+            'jumlah_keluar.*' => [
                 'required' => 'Jumlah keluar harus diisi.',
                 'greater_than' => 'Jumlah keluar harus lebih dari 0.',
             ],
@@ -75,37 +77,47 @@ class BarangKeluar extends BaseController
             return view('barang_keluar/tambah', $data);
         }
 
-        $barangId = $this->request->getPost('barang_id');
-        $barang = $barangModel->find($barangId);
+        // Validate stock availability for each item
+        $inputBarangIds = $this->request->getPost('barang_id');
+        $inputJumlahKeluar = $this->request->getPost('jumlah_keluar');
 
-        // Validasi stok barang
-        $jumlahKeluar = $this->request->getPost('jumlah_keluar');
-        if ($jumlahKeluar > $barang['stok']) {
-            session()->setFlashdata('error', 'Stok tidak mencukupi.');
-            $data = [
-                'title' => 'Tambah Barang Keluar',
-                'barang' => $barangModel->findAll(),
-                'validation' => $this->validator,
-            ];
-            return view('barang_keluar/tambah', $data);
+        foreach ($inputBarangIds as $key => $barangId) {
+            $barang = $barangModel->find($barangId);
+
+            // Validasi stok barang
+            if ($inputJumlahKeluar[$key] > $barang['stok']) {
+                session()->setFlashdata('error', 'Stok tidak mencukupi untuk barang dengan ID: ' . $barangId);
+                $data = [
+                    'title' => 'Tambah Barang Keluar',
+                    'barang' => $barangModel->findAll(),
+                    'validation' => $this->validator,
+                ];
+                return view('barang_keluar/tambah', $data);
+            }
         }
-        $data = [
-            'barang_id' => $barangId,
-            'jumlah_keluar' => $jumlahKeluar,
-            'tanggal_keluar' => $this->request->getPost('tanggal_keluar'),
-            'kode_keluar' => $this->request->getPost('kode_keluar'),
-            'keterangan' => $this->request->getPost('keterangan'),
-        ];
 
-        $barangKeluarModel->save($data);
+        // Insert data barang keluar
+        foreach ($inputBarangIds as $key => $barangId) {
+            $data = [
+                'barang_id' => $barangId,
+                'jumlah_keluar' => $inputJumlahKeluar[$key],
+                'tanggal_keluar' => $this->request->getPost('tanggal_keluar'),
+                'kode_keluar' => $this->request->getPost('kode_keluar'),
+                'keterangan' => isset($inputKeterangan[$key]) ? $inputKeterangan[$key] : null,
+            ];
 
-        // Update stok barang
-        $barang['stok'] -= $jumlahKeluar;
-        $barangModel->save($barang);
+            $barangKeluarModel->save($data);
+
+            // Update stok barang
+            $barang = $barangModel->find($barangId);
+            $barang['stok'] -= $inputJumlahKeluar[$key];
+            $barangModel->save($barang);
+        }
 
         session()->setFlashdata('success', 'Barang keluar berhasil ditambahkan.');
         return redirect()->to('/barang-keluar');
     }
+
 
     public function edit($id)
     {
@@ -140,7 +152,6 @@ class BarangKeluar extends BaseController
             'barang_id' => 'required|integer',
             'jumlah_keluar' => 'required|greater_than[0]',
             'tanggal_keluar' => 'required|valid_date[Y-m-d\TH:i]',
-            'kode_keluar' => 'required|alpha_numeric_space',
             'keterangan' => 'permit_empty',
         ];
         $validationMessages = [
@@ -156,10 +167,6 @@ class BarangKeluar extends BaseController
             'tanggal_keluar' => [
                 'required' => 'Tanggal keluar harus diisi.',
                 'valid_date' => 'Format tanggal dan waktu tidak valid.',
-            ],
-            'kode_keluar' => [
-                'required' => 'Kode masuk harus diisi.',
-                'alpha_numeric_space' => 'Kode masuk hanya boleh berisi huruf, angka, dan spasi.',
             ],
         ];
 

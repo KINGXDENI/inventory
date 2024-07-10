@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="col-lg-2 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Jumlah Masuk</label>
                                 <input type="number" name="jumlah_masuk" class="form-control <?= isset($validation) && $validation->hasError('jumlah_masuk') ? 'is-invalid' : '' ?>" value="<?= old('jumlah_masuk', $barangMasuk['jumlah_masuk']) ?>">
@@ -48,10 +48,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="col-lg-2 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tanggal Masuk</label>
-                                <input type="datetime-local" name="tanggal_masuk" class="form-control <?= isset($validation) && $validation->hasError('tanggal_masuk') ? 'is-invalid' : '' ?>" value="<?= old('tanggal_masuk', $barangMasuk['tanggal_masuk']) ?>">
+                                <input type="datetime-local" name="tanggal_masuk" class="form-control <?= isset($validation) && $validation->hasError('tanggal_masuk') ? 'is-invalid' : '' ?>" value="<?= old('tanggal_masuk', date('Y-m-d\TH:i', strtotime($barangMasuk['tanggal_masuk']))) ?>">
                                 <div class="invalid-feedback">
                                     <?= isset($validation) ? $validation->getError('tanggal_masuk') : '' ?>
                                 </div>
@@ -70,6 +70,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

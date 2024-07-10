@@ -65,9 +65,10 @@ class Barang extends BaseController
         $validationRules = [
             'nama_barang' => 'required',
             'deskripsi' => 'required',
-            // Tambahkan aturan validasi lainnya sesuai kebutuhan
             'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]|max_size[foto,2048]',
+            'merek' => 'required', // Menambahkan aturan validasi untuk merek
         ];
+
         $validationMessages = [
             'nama_barang' => [
                 'required' => 'Nama barang harus diisi.',
@@ -80,7 +81,11 @@ class Barang extends BaseController
                 'ext_in' => 'Format gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.',
                 'max_size' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
             ],
+            'merek' => [
+                'required' => 'Merek harus diisi.', // Pesan validasi untuk merek
+            ],
         ];
+
         if (!$this->validate($validationRules, $validationMessages)) {
             $data['title'] = 'Tambah Barang';
             $data['validation'] = $this->validator;
@@ -100,6 +105,9 @@ class Barang extends BaseController
                 'deskripsi' => $this->request->getPost('deskripsi'),
                 'foto' => $newName,
                 'stok' => $this->request->getPost('stok'),
+                'berat' => $this->request->getPost('berat'),
+                'satuan' => $this->request->getPost('satuan'),
+                'merek' => $this->request->getPost('merek'), // Menambahkan merek ke dalam data yang disimpan
             ];
 
             $barangModel->save($data);
@@ -114,8 +122,10 @@ class Barang extends BaseController
         }
     }
 
+
     public function editbarang($id)
-    {    $barangModel = new BarangModel();
+    {
+        $barangModel = new BarangModel();
 
         $barang = $barangModel->find($id);
         if (!$barang) {
@@ -123,48 +133,48 @@ class Barang extends BaseController
         }
 
         $data = [
-            'title' => 'Edit Barang',
-            'barang' => $barang,
-            'validation' => \Config\Services::validation(),
-        ];
+                'title' => 'Edit Barang',
+                'barang' => $barang, // Pastikan $barang didefinisikan di sini
+                'validation' => \Config\Services::validation(),
+            ];
+
         return view('barang/barangedit', $data);
     }
+
 
     public function update($id)
     {
         $barangModel = new BarangModel();
 
-        // $validationRules = [
-        //     'kode_barang' => 'required|alpha_numeric_space|is_unique[barang.kode_barang]',
-        //     'nama_barang' => 'required',
-        //     'deskripsi' => 'required',
-        //     // Tambahkan aturan validasi lainnya sesuai kebutuhan
-        //     'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]|max_size[foto,2048]',
-        // ];
-        // $validationMessages = [
-        //     'kode_barang' => [
-        //         'required' => 'Kode barang harus diisi.',
-        //         'alpha_numeric_space' => 'Kode barang hanya boleh berisi huruf, angka, dan spasi.',
-        //         'is_unique' => 'Kode barang sudah digunakan.',
-        //     ],
-        //     'nama_barang' => [
-        //         'required' => 'Nama barang harus diisi.',
-        //     ],
-        //     'deskripsi' => [
-        //         'required' => 'Deskripsi harus diisi.',
-        //     ],
-        //     'foto' => [
-        //         'uploaded' => 'Gambar harus diunggah.',
-        //         'ext_in' => 'Format gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.',
-        //         'max_size' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-        //     ],
-        // ];
+        $validationRules = [
+            'nama_barang' => 'required',
+            'deskripsi' => 'required',
+            'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]|max_size[foto,2048]',
+            'merek' => 'required', // Menambahkan aturan validasi untuk merek
+        ];
 
-        // if (!$this->validate($validationRules, $validationMessages)) {
-        //     $data['title'] = 'Edit Barang';
-        //     $data['validation'] = $this->validator;
-        //     return view('barangedit', $data);
-        // }
+        $validationMessages = [
+            'nama_barang' => [
+                'required' => 'Nama barang harus diisi.',
+            ],
+            'deskripsi' => [
+                'required' => 'Deskripsi harus diisi.',
+            ],
+            'foto' => [
+                'uploaded' => 'Gambar harus diunggah.',
+                'ext_in' => 'Format gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.',
+                'max_size' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+            ],
+            'merek' => [
+                'required' => 'Merek harus diisi.', // Pesan validasi untuk merek
+            ],
+        ];
+
+        if (!$this->validate($validationRules, $validationMessages)) {
+            $data['title'] = 'Edit Barang';
+            $data['validation'] = $this->validator;
+            return view('barang/barangedit', $data);
+        }
 
         $uploadedFile = $this->request->getFile('foto');
         $fotoLama = $this->request->getPost('fotoLama');
@@ -184,12 +194,16 @@ class Barang extends BaseController
         }
 
         $data = [
-            'kode_barang' => $this->request->getPost('kode_barang'),
-            'nama_barang' => $this->request->getPost('nama_barang'),
-            'deskripsi' => $this->request->getPost('deskripsi'),
-            'foto' => $foto,
-            'stok' => $this->request->getPost('stok'),
-        ];
+                'kode_barang' => $this->request->getPost('kode_barang'),
+                'nama_barang' => $this->request->getPost('nama_barang'),
+                'deskripsi' => $this->request->getPost('deskripsi'),
+                'foto' => $foto,
+                'stok' => $this->request->getPost('stok'),
+                'berat' => $this->request->getPost('berat'),
+                'satuan' => $this->request->getPost('satuan'),
+                'merek' => $this->request->getPost('merek'), // Menambahkan merek ke dalam data yang disimpan
+            ];
+
         $barangModel->update($id, $data);
 
         session()->setFlashdata('success', 'Barang berhasil diperbarui.');

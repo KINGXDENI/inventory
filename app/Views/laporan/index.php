@@ -38,13 +38,14 @@
                 <form method="POST" action="<?= base_url('laporan/generate') ?>">
                     <?= csrf_field() ?>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Jenis Laporan</label>
                                 <select name="jenis_laporan" class="form-control <?= isset($validation) && $validation->hasError('jenis_laporan') ? 'is-invalid' : '' ?>">
                                     <option value="" disabled selected>Pilih Jenis Laporan</option>
                                     <option value="masuk" <?= (old('jenis_laporan', $jenisLaporan ?? '') == 'masuk') ? 'selected' : '' ?>>Barang Masuk</option>
                                     <option value="keluar" <?= (old('jenis_laporan', $jenisLaporan ?? '') == 'keluar') ? 'selected' : '' ?>>Barang Keluar</option>
+                                    <option value="stock" <?= (old('jenis_laporan', $jenisLaporan ?? '') == 'stock') ? 'selected' : '' ?>>Stok Barang</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     <?= isset($validation) ? $validation->getError('jenis_laporan') : '' ?>
@@ -81,8 +82,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 mt-3 text-center">
-                            <button type="submit" class="btn btn-primary btn-block">Generate</button>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="submit" class="btn btn-primary btn-block mt-2">Generate</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -115,8 +119,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
-                                    <th><?= ($jenisLaporan == 'masuk') ? 'Jumlah Masuk' : 'Jumlah Keluar' ?></th>
-                                    <th>Tanggal <?= ($jenisLaporan == 'masuk') ? 'Masuk' : 'Keluar' ?></th>
+                                    <th><?= ($jenisLaporan == 'masuk') ? 'Jumlah Masuk' : (($jenisLaporan == 'keluar') ? 'Jumlah Keluar' : 'Stok Saat Ini') ?></th>
+                                    <th>Tanggal <?= ($jenisLaporan == 'masuk') ? 'Masuk' : (($jenisLaporan == 'keluar') ? 'Keluar' : 'Update Terakhir') ?></th>
                                     <th>Keterangan</th>
                                 </tr>
                             </thead>
@@ -126,9 +130,9 @@
                                     <tr>
                                         <td><?= $no++; ?></td>
                                         <td><?= $item['nama_barang'] ?></td>
-                                        <td><?= $item[$jenisLaporan == 'masuk' ? 'jumlah_masuk' : 'jumlah_keluar'] ?></td>
-                                        <td><?= $item[$jenisLaporan == 'masuk' ? 'tanggal_masuk' : 'tanggal_keluar'] ?></td>
-                                        <td><?= $item['keterangan'] ?></td>
+                                        <td><?= ($jenisLaporan == 'masuk') ? $item['jumlah_masuk'] : (($jenisLaporan == 'keluar') ? $item['jumlah_keluar'] : $item['stok']) ?></td>
+                                        <td><?= ($jenisLaporan == 'masuk') ? $item['tanggal_masuk'] : (($jenisLaporan == 'keluar') ? $item['tanggal_keluar'] : $item['tanggal_update']) ?></td>
+                                        <td><?= isset($item['keterangan']) ? $item['keterangan'] : '' ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -136,6 +140,7 @@
                     </div>
                 <?php endif; ?>
             </div>
+
         </div>
     </div>
 </div>

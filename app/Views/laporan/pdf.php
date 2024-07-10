@@ -62,8 +62,10 @@
                 <th>No</th>
                 <?php if ($jenisLaporan === 'masuk') : ?>
                     <th>Kode Masuk</th>
-                <?php else : ?>
+                <?php elseif ($jenisLaporan === 'keluar') : ?>
                     <th>Kode Keluar</th>
+                <?php elseif ($jenisLaporan === 'stock') : ?>
+                    <th>Kode Barang</th>
                 <?php endif; ?>
                 <th>Nama Barang</th>
                 <th>Jumlah <?= ucfirst($jenisLaporan) ?></th>
@@ -76,10 +78,34 @@
             <?php foreach ($laporan as $item) : ?>
                 <tr>
                     <td><?= $no++; ?></td>
-                    <td><?= $item[$jenisLaporan === 'masuk' ? 'kode_masuk' : 'kode_keluar'] ?></td>
+                    <?php if ($jenisLaporan === 'stock') : ?>
+                        <td><?= $item['kode_barang'] ?></td>
+                    <?php else : ?>
+                        <td><?= $item[$jenisLaporan === 'masuk' ? 'kode_masuk' : 'kode_keluar'] ?></td>
+                    <?php endif; ?>
                     <td><?= $item['nama_barang'] ?></td>
-                    <td><?= $item[$jenisLaporan === 'masuk' ? 'jumlah_masuk' : 'jumlah_keluar'] ?></td>
-                    <td><?= $item[$jenisLaporan === 'masuk' ? 'tanggal_masuk' : 'tanggal_keluar'] ?></td>
+                    <td>
+                        <?php
+                        if ($jenisLaporan === 'masuk') {
+                            echo $item['jumlah_masuk'];
+                        } elseif ($jenisLaporan === 'keluar') {
+                            echo $item['jumlah_keluar'];
+                        } elseif ($jenisLaporan === 'stock') {
+                            echo $item['stok'];
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        if ($jenisLaporan === 'masuk') {
+                            echo $item['tanggal_masuk'];
+                        } elseif ($jenisLaporan === 'keluar') {
+                            echo $item['tanggal_keluar'];
+                        } elseif ($jenisLaporan === 'stock') {
+                            echo $item['tanggal_update']; // Assuming this field exists for stock
+                        }
+                        ?>
+                    </td>
                     <td><?= $item['keterangan'] ?></td>
                 </tr>
             <?php endforeach; ?>
