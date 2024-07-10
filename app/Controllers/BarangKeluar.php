@@ -309,7 +309,7 @@ class BarangKeluar extends BaseController
         $dompdf->render();
 
         // Output the generated PDF to Browser
-        $dompdf->stream('Laporan_Barang_Keluar.pdf');
+        $dompdf->stream('Nota_Barang_Keluar.pdf');
     }
 
 
