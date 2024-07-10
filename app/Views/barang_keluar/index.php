@@ -41,13 +41,63 @@
             <div class="card-body">
                 <div class="table-top">
                     <div class="search-set">
-                        
+                        <div class="search-path">
+
+                        </div>
                         <div class="search-input">
                             <a class="btn btn-searchset"><img src="<?= base_url(); ?>/assets/img/icons/search-white.svg" alt="img"></a>
                         </div>
                     </div>
-                    
                 </div>
+                <div class="card mb-0">
+                    <div class="card-body pb-0">
+                        <form method="GET" action="<?= base_url('barang-keluar/filter') ?>">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row g-3">
+                                        <div class="col-lg-2 col-md-4 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label for="kode_keluar">Kode Barang Keluar</label>
+                                                <select class="form-select" id="kode_keluar" name="kode_keluar">
+                                                    <option value="">Pilih Kode Barang Keluar</option>
+                                                    <?php foreach ($kodeKeluar as $kode) : ?>
+                                                        <option value="<?= $kode ?>"><?= $kode ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label for="periode_awal">Periode Awal</label>
+                                                <input type="date" class="form-control" id="periode_awal" name="periode_awal">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <label for="periode_akhir">Periode Akhir</label>
+                                                <input type="date" class="form-control" id="periode_akhir" name="periode_akhir">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-md-12 col-sm-6 col-12 d-flex align-items-end">
+                                            <div class="form-group d-flex">
+                                                <button type="submit" class="btn btn-filters ms-auto w-100">
+                                                    <img src="<?= base_url(); ?>/assets/img/icons/search-whites.svg" alt="img">
+                                                </button>
+                                                <?php if (isset($hasResults) && $hasResults) : ?>
+                                                    <a href="<?= base_url('barang-keluar/reset') ?>" class="btn btn-secondary ms-2">Reset</a>
+                                                    <a href="<?= base_url('barang-keluar/print') ?>?kode_keluar=<?= $kode_keluar ?>&periode_awal=<?= $periode_awal ?>&periode_akhir=<?= $periode_akhir ?>" class="btn btn-primary ms-2">Print</a>
+
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
                 <div class="table-responsive">
                     <table class="table datanew">
                         <thead>

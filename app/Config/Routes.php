@@ -40,6 +40,11 @@ $routes->group('', ['filter' => 'jabatanFilter'], function ($routes) {
     $routes->get('/barang-keluar/edit/(:num)', 'BarangKeluar::edit/$1');
     $routes->post('/barang-keluar/update/(:num)', 'BarangKeluar::update/$1');
     $routes->get('/barang-keluar/hapus/(:num)', 'BarangKeluar::hapus/$1');
+    $routes->get('/barang-keluar/filter', 'BarangKeluar::filter');
+    $routes->get('/barang-keluar/reset', 'BarangKeluar::reset');
+    $routes->get('/barang-keluar/print', 'BarangKeluar::print');
+    
+    
 
     //laporan
     $routes->get('/laporan', 'LaporanUmum::index');

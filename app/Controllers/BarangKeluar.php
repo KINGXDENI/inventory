@@ -5,15 +5,20 @@ namespace App\Controllers;
 use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 
+
 class BarangKeluar extends BaseController
 {
 
     public function index()
     {
         $barangKeluarModel = new BarangKeluarModel();
+        $barangKeluar = $barangKeluarModel->getBarangKeluar();
+
+        $kodeKeluar = array_unique(array_column($barangKeluarModel->findAll(), 'kode_keluar'));
         $data = [
             'title' => 'Barang Keluar',
-            'barangKeluar' => $barangKeluarModel->getBarangKeluar(),
+            'barangKeluar' => $barangKeluar,
+            'kodeKeluar' => $kodeKeluar
         ];
         return view('barang_keluar/index', $data);
     }
@@ -243,4 +248,71 @@ class BarangKeluar extends BaseController
         session()->setFlashdata('success', 'Data barang keluar berhasil dihapus.');
         return redirect()->to('/barang-keluar');
     }
+    public function filter()
+    {
+        $kode_keluar = $this->request->getGet('kode_keluar');
+        $periode_awal = $this->request->getGet('periode_awal');
+        $periode_akhir = $this->request->getGet('periode_akhir');
+
+        $barangKeluarModel = new BarangKeluarModel();
+        $barangKeluar = $barangKeluarModel->filterBarangKeluar($kode_keluar, $periode_awal, $periode_akhir);
+
+        $kodeKeluar = array_unique(array_column($barangKeluarModel->findAll(), 'kode_keluar'));
+
+        $data = [
+            'title' => 'Barang Keluar',
+            'barangKeluar' => $barangKeluar,
+            'kodeKeluar' => $kodeKeluar,
+            'hasResults' => !empty($barangKeluar),
+            'kode_keluar' => $kode_keluar,
+            'periode_awal' => $periode_awal,
+            'periode_akhir' => $periode_akhir,
+        ];
+
+        return view('barang_keluar/index', $data);
+    }
+
+    public function reset()
+    {
+        $barangKeluarModel = new BarangKeluarModel();
+        $barangKeluar = $barangKeluarModel->getBarangKeluar();
+
+        $kodeKeluar = array_unique(array_column($barangKeluarModel->findAll(), 'kode_keluar'));
+        $data = [
+            'title' => 'Barang Keluar',
+            'barangKeluar' => $barangKeluar,
+            'kodeKeluar' => $kodeKeluar,
+           
+        ];
+
+        return view('barang_keluar/index', $data);
+    }
+
+    public function print()
+    {
+        $kode_keluar = $this->request->getGet('kode_keluar');
+        $periode_awal = $this->request->getGet('periode_awal');
+        $periode_akhir = $this->request->getGet('periode_akhir');
+
+        $barangKeluarModel = new BarangKeluarModel();
+        $barangKeluar = $barangKeluarModel->filterBarangKeluar($kode_keluar, $periode_awal, $periode_akhir);
+        
+        $data = [
+            'title' => 'Laporan Barang Keluar',
+            'barangKeluar' => $barangKeluar,
+        ];
+
+
+        $dompdf = new \Dompdf\Dompdf();
+        $dompdf->loadHtml(view('barang_keluar/print', $data));
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream('Laporan_Barang_Keluar.pdf');
+    }
+
+
+
+
 }

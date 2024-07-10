@@ -42,7 +42,7 @@
                     <div class="row g-3">
                         <div class="col-md-3">
                             <label for="kode_keluar" class="form-label">Kode Keluar</label>
-                            <input type="text" id="kode_keluar" name="kode_keluar" class="form-control" value="<?= $kodeKeluar; ?>" readonly>
+                            <input type="text" id="kode_keluar" name="kode_keluar" class="form-control" value="<?= $kodeKeluar ?>" readonly>
                         </div>
                         <div class="col-md-3">
                             <label for="tanggal_keluar" class="form-label">Tanggal Keluar</label>

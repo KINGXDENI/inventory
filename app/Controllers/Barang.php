@@ -131,7 +131,7 @@ class Barang extends BaseController
         if (!$barang) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-
+        
         $data = [
                 'title' => 'Edit Barang',
                 'barang' => $barang, // Pastikan $barang didefinisikan di sini

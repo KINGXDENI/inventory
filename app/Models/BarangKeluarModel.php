@@ -39,4 +39,27 @@ class BarangKeluarModel extends Model
 
         return $builder->findAll();
     }
+
+    // BarangKeluarModel.php
+
+    public function filterBarangKeluar($kode_keluar = null, $periode_awal = null, $periode_akhir = null)
+    {
+        $builder = $this->db->table('barang_keluar');
+        $builder->select('barang_keluar.*, barang.nama_barang');
+        $builder->join('barang', 'barang.id = barang_keluar.barang_id');
+
+        if (!empty($kode_keluar)) {
+            $builder->where('barang_keluar.kode_keluar', $kode_keluar);
+        }
+
+        if (!empty($periode_awal) && !empty($periode_akhir)) {
+            $builder->where('tanggal_keluar >=', $periode_awal);
+            $builder->where('tanggal_keluar <=', $periode_akhir);
+        }
+
+        return $builder->get()->getResultArray();
+    }
+
+
+
 }
