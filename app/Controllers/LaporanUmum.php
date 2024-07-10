@@ -198,12 +198,18 @@ class LaporanUmum extends BaseController
         ];
 
         $dompdf = new \Dompdf\Dompdf();
+        $dompdf = new Dompdf(['isHtml5ParserEnabled' => true]);
         $dompdf->loadHtml(view('laporan/pdf', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        // Stream atau download file PDF
-        $dompdf->stream("laporan_barang_{$jenisLaporan}.pdf");
+        $stream = TRUE;
+        if ($stream) {
+            $dompdf->stream("laporan_barang_{$jenisLaporan}" . ".pdf", array("Attachment" => 0));
+            exit();
+        } else {
+            return $dompdf->output();
+        }
     }
 
 

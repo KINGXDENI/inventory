@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
-
+use Dompdf\Dompdf;
 
 class BarangKeluar extends BaseController
 {
@@ -304,12 +304,18 @@ class BarangKeluar extends BaseController
 
 
         $dompdf = new \Dompdf\Dompdf();
-        $dompdf->loadHtml(view('barang_keluar/print', $data));
+        $dompdf = new Dompdf(['isHtml5ParserEnabled' => true]);
+        $dompdf->loadHtml(view('laporan/pdf', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
-        // Output the generated PDF to Browser
-        $dompdf->stream('Nota_Barang_Keluar.pdf');
+        $stream = TRUE;
+        if ($stream) {
+            $dompdf->stream("Nota_Barang_Keluar" . ".pdf", array("Attachment" => 0));
+            exit();
+        } else {
+            return $dompdf->output();
+        }
     }
 
 
