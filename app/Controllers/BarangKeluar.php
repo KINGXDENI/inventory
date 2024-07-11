@@ -305,7 +305,7 @@ class BarangKeluar extends BaseController
 
         $dompdf = new \Dompdf\Dompdf();
         $dompdf = new Dompdf(['isHtml5ParserEnabled' => true]);
-        $dompdf->loadHtml(view('laporan/pdf', $data));
+        $dompdf->loadHtml(view('barang_keluar/print', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
 
