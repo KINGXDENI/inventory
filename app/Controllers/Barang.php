@@ -64,7 +64,6 @@ class Barang extends BaseController
     {
         $validationRules = [
             'nama_barang' => 'required',
-            'deskripsi' => 'required',
             'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]|max_size[foto,2048]',
             'merek' => 'required', // Menambahkan aturan validasi untuk merek
         ];
@@ -72,9 +71,6 @@ class Barang extends BaseController
         $validationMessages = [
             'nama_barang' => [
                 'required' => 'Nama barang harus diisi.',
-            ],
-            'deskripsi' => [
-                'required' => 'Deskripsi harus diisi.',
             ],
             'foto' => [
                 'uploaded' => 'Gambar harus diunggah.',
@@ -146,35 +142,37 @@ class Barang extends BaseController
     {
         $barangModel = new BarangModel();
 
-        $validationRules = [
-            'nama_barang' => 'required',
-            'deskripsi' => 'required',
-            'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]|max_size[foto,2048]',
-            'merek' => 'required', // Menambahkan aturan validasi untuk merek
-        ];
+        // $validationRules = [
+        //     'nama_barang' => 'required',
+        //     'deskripsi' => 'required',
+        //     'foto' => 'uploaded[foto]|ext_in[foto,jpg,jpeg,png]',
+        //     'merek' => 'required', // Menambahkan aturan validasi untuk merek
+        // ];
 
-        $validationMessages = [
-            'nama_barang' => [
-                'required' => 'Nama barang harus diisi.',
-            ],
-            'deskripsi' => [
-                'required' => 'Deskripsi harus diisi.',
-            ],
-            'foto' => [
-                'uploaded' => 'Gambar harus diunggah.',
-                'ext_in' => 'Format gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.',
-                'max_size' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-            ],
-            'merek' => [
-                'required' => 'Merek harus diisi.', // Pesan validasi untuk merek
-            ],
-        ];
-
-        if (!$this->validate($validationRules, $validationMessages)) {
-            $data['title'] = 'Edit Barang';
-            $data['validation'] = $this->validator;
-            return view('barang/barangedit', $data);
-        }
+        // $validationMessages = [
+        //     'nama_barang' => [
+        //         'required' => 'Nama barang harus diisi.',
+        //     ],
+        //     'deskripsi' => [
+        //         'required' => 'Deskripsi harus diisi.',
+        //     ],
+        //     'foto' => [
+        //         'uploaded' => 'Gambar harus diunggah.',
+        //         'ext_in' => 'Format gambar tidak valid. Hanya jpg, jpeg, dan png yang diperbolehkan.',
+        //     ],
+        //     'merek' => [
+        //         'required' => 'Merek harus diisi.', // Pesan validasi untuk merek
+        //     ],
+        // ];
+        // if (!$this->validate($validationRules, $validationMessages)) {
+        //     $data = [
+        //         'title' => 'Edit Barang',
+        //         'barang' => $barangModel->findAll(),
+        //         'validation' => $this->validator,
+        //     ];
+        //     return view('barang/barangedit', $data);
+        // }
+       
 
         $uploadedFile = $this->request->getFile('foto');
         $fotoLama = $this->request->getPost('fotoLama');
