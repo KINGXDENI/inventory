@@ -162,6 +162,13 @@ class LaporanUmum extends BaseController
         if (!in_array($jenisLaporan, ['masuk', 'keluar', 'stock'])) {
             return redirect()->to('/laporan')->with('error', 'Jenis laporan tidak valid.');
         }
+        if (is_string($periodeAwal)) {
+            $periodeAwal = date('Y-m-d', strtotime($periodeAwal));
+        }
+
+        if (is_string($periodeAkhir)) {
+            $periodeAkhir = date('Y-m-d', strtotime($periodeAkhir));
+        }
 
         // Ambil data sesuai jenis laporan
         if ($jenisLaporan === 'masuk') {
@@ -198,11 +205,12 @@ class LaporanUmum extends BaseController
         ];
 
         $dompdf = new \Dompdf\Dompdf();
-        $dompdf = new Dompdf(['isHtml5ParserEnabled' => true]);
+        $dompdf = new Dompdf(['isHtml5ParserEnabled' => true, 'isPhpEnabled' => true]);
+        
         $dompdf->loadHtml(view('laporan/pdf', $data));
         $dompdf->setPaper('A4', 'landscape');
         $dompdf->render();
-
+        
         $stream = TRUE;
         if ($stream) {
             $dompdf->stream("laporan_barang_{$jenisLaporan}" . ".pdf", array("Attachment" => 0));

@@ -47,10 +47,18 @@
             text-align: center;
             font-size: 12px;
         }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+        }
     </style>
 </head>
 
 <body>
+    <img src="data:image/png;base64,<?= base64_encode(file_get_contents('assets/img/logo1.png')) ?>" alt="Logo" class="logo">
 
     <h2>Laporan Barang <?= ucfirst($jenisLaporan) ?></h2>
     <p>Periode: <?= $periodeAwal ?> - <?= $periodeAkhir ?></p>
@@ -70,7 +78,6 @@
                 <th>Nama Barang</th>
                 <th>Jumlah <?= ucfirst($jenisLaporan) ?></th>
                 <th>Tanggal <?= ucfirst($jenisLaporan) ?></th>
-                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -98,15 +105,14 @@
                     <td>
                         <?php
                         if ($jenisLaporan === 'masuk') {
-                            echo $item['tanggal_masuk'];
+                            echo date('Y-m-d', strtotime($item['tanggal_masuk']));
                         } elseif ($jenisLaporan === 'keluar') {
-                            echo $item['tanggal_keluar'];
+                            echo date('Y-m-d', strtotime($item['tanggal_keluar']));
                         } elseif ($jenisLaporan === 'stock') {
-                            echo $item['tanggal_update']; // Assuming this field exists for stock
+                            echo date('Y-m-d', strtotime($item['tanggal_update'])); // Assuming this field exists for stock
                         }
                         ?>
                     </td>
-                    <td><?= $item['keterangan'] ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -124,10 +130,7 @@
         <br>
         <br>
         <p>(____________________)</p>
-    </div>
-
-    <div class="footer">
-        <p>Sistem Inventory Barang - Halaman {PAGENO} dari {nbpg}</p>
+        <p> Petugas Gudang </p>
     </div>
 </body>
 

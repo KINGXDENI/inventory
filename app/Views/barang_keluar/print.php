@@ -6,6 +6,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         h2 {
@@ -36,15 +38,46 @@
             background-color: #f0f0f0;
         }
 
-        .footer {
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 100px;
+        }
+
+        .signatures {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
             text-align: center;
-            font-size: 12px;
+        }
+
+        .signature {
+            display: inline-block;
+            width: 45%;
+            text-align: center;
+        }
+
+        .signature.left {
+            float: left;
+            text-align: left;
+        }
+
+        .signature.right {
+            float: right;
+            text-align: right;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
 
 <body>
-
+    <img src="data:image/png;base64,<?= base64_encode(file_get_contents('assets/img/logo1.png')) ?>" alt="Logo" class="logo">
     <h2>Nota Barang Keluar</h2>
     <p>Dicetak pada: <?= date('d F Y H:i:s') ?></p>
 
@@ -56,7 +89,6 @@
                 <th>Nama Barang</th>
                 <th>Jumlah Keluar</th>
                 <th>Tanggal Keluar</th>
-                <th>Keterangan</th>
             </tr>
         </thead>
         <tbody>
@@ -75,15 +107,25 @@
                     <?php endif; ?>
                     <td><?= $item['nama_barang'] ?></td>
                     <td><?= $item['jumlah_keluar'] ?></td>
-                    <td><?= $item['tanggal_keluar'] ?></td>
-                    <td><?= $item['keterangan'] ?></td>
+                    <td><?= date('Y-m-d', strtotime($item['tanggal_keluar'])) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 
-    <div class="footer">
-        <p>Sistem Inventory Barang</p>
+    <div class="signatures clearfix">
+        <div class="signature left">
+         
+            <br><br>
+            <p>(____________________)</p>
+            <p>Penerima</p>
+        </div>
+        <div class="signature right">
+           
+            <br><br>
+            <p>(____________________)</p>
+            <p>Petugas Gudang</p>
+        </div>
     </div>
 </body>
 

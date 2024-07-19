@@ -293,7 +293,7 @@ class BarangKeluar extends BaseController
         $kode_keluar = $this->request->getGet('kode_keluar');
         $periode_awal = $this->request->getGet('periode_awal');
         $periode_akhir = $this->request->getGet('periode_akhir');
-
+        
         $barangKeluarModel = new BarangKeluarModel();
         $barangKeluar = $barangKeluarModel->filterBarangKeluar($kode_keluar, $periode_awal, $periode_akhir);
         
