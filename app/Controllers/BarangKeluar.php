@@ -77,6 +77,7 @@ class BarangKeluar extends BaseController
             $data = [
                 'title' => 'Tambah Barang Keluar',
                 'barang' => $barangModel->findAll(),
+                'kodeKeluar' => $this->request->getPost('kode_keluar'), 
                 'validation' => $this->validator,
             ];
             return view('barang_keluar/tambah', $data);

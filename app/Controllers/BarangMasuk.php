@@ -75,6 +75,7 @@ class BarangMasuk extends BaseController
             $data = [
                 'title' => 'Tambah Barang Masuk',
                 'barang' => $barangModel->findAll(),
+                'kodeMasuk' => $this->request->getPost('kode_masuk'), 
                 'validation' => $this->validator,
             ];
             return view('barang_masuk/tambah', $data);
@@ -104,6 +105,7 @@ class BarangMasuk extends BaseController
         session()->setFlashdata('success', 'Barang masuk berhasil ditambahkan.');
         return redirect()->to('/barang-masuk');
     }
+
 
 
     public function edit($id)
