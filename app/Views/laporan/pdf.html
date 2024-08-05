@@ -63,7 +63,8 @@
 </head>
 
 <body>
-    <img src="data:image/png;base64,<?= base64_encode(file_get_contents('assets/img/logo1.png')) ?>" alt="Logo" class="logo">
+    <img src="data:image/png;base64,<?= base64_encode(file_get_contents('assets/img/logo1.png')) ?>" alt="Logo"
+        class="logo">
 
     <h2>Laporan Barang <?= ucfirst($jenisLaporan) ?></h2>
     <p>Periode: <?= $periodeAwal ?> - <?= $periodeAkhir ?></p>
@@ -74,11 +75,11 @@
             <tr>
                 <th>No</th>
                 <?php if ($jenisLaporan === 'masuk') : ?>
-                    <th>Kode Masuk</th>
+                <th>Kode Masuk</th>
                 <?php elseif ($jenisLaporan === 'keluar') : ?>
-                    <th>Kode Keluar</th>
+                <th>Kode Keluar</th>
                 <?php elseif ($jenisLaporan === 'stock') : ?>
-                    <th>Kode Barang</th>
+                <th>Kode Barang</th>
                 <?php endif; ?>
                 <th>Nama Barang</th>
                 <th>Jumlah <?= ucfirst($jenisLaporan) ?></th>
@@ -88,16 +89,16 @@
         <tbody>
             <?php $no = 1; ?>
             <?php foreach ($laporan as $item) : ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <?php if ($jenisLaporan === 'stock') : ?>
-                        <td><?= $item['kode_barang'] ?></td>
-                    <?php else : ?>
-                        <td><?= $item[$jenisLaporan === 'masuk' ? 'kode_masuk' : 'kode_keluar'] ?></td>
-                    <?php endif; ?>
-                    <td><?= $item['nama_barang'] ?></td>
-                    <td>
-                        <?php
+            <tr>
+                <td><?= $no++; ?></td>
+                <?php if ($jenisLaporan === 'stock') : ?>
+                <td><?= $item['kode_barang'] ?></td>
+                <?php else : ?>
+                <td><?= $item[$jenisLaporan === 'masuk' ? 'kode_masuk' : 'kode_keluar'] ?></td>
+                <?php endif; ?>
+                <td><?= $item['nama_barang'] ?></td>
+                <td>
+                    <?php
                         if ($jenisLaporan === 'masuk') {
                             echo $item['jumlah_masuk'];
                         } elseif ($jenisLaporan === 'keluar') {
@@ -106,9 +107,9 @@
                             echo $item['stok'];
                         }
                         ?>
-                    </td>
-                    <td>
-                        <?php
+                </td>
+                <td>
+                    <?php
                         if ($jenisLaporan === 'masuk') {
                             echo date('Y-m-d', strtotime($item['tanggal_masuk']));
                         } elseif ($jenisLaporan === 'keluar') {
@@ -117,8 +118,8 @@
                             echo date('Y-m-d', strtotime($item['tanggal_update'])); // Assuming this field exists for stock
                         }
                         ?>
-                    </td>
-                </tr>
+                </td>
+            </tr>
             <?php endforeach; ?>
         </tbody>
         <tfoot>
