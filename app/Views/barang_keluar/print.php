@@ -46,7 +46,7 @@
         }
 
         .signatures {
-           
+            position: absolute;
             bottom: 20px;
             width: 100%;
             text-align: center;
@@ -81,6 +81,14 @@
     <h2>Nota Barang Keluar</h2>
     <p>Dicetak pada: <?= date('d F Y H:i:s') ?></p>
 
+    <?php
+    // Kelompokkan data berdasarkan kode_keluar
+    $kelompokBarang = [];
+    foreach ($barangKeluar as $item) {
+        $kelompokBarang[$item['kode_keluar']][] = $item;
+    }
+    ?>
+
     <table>
         <thead>
             <tr>
@@ -92,36 +100,38 @@
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; ?>
-            <?php $printedKodeKeluar = []; ?>
-            <?php foreach ($barangKeluar as $item) : ?>
-                <tr>
-                    <td><?= $no++; ?></td>
-                    <?php if (!in_array($item['kode_keluar'], $printedKodeKeluar)) : ?>
-                        <td rowspan="<?= count(array_filter($barangKeluar, function ($el) use ($item) {
-                                            return $el['kode_keluar'] == $item['kode_keluar'];
-                                        })) ?>">
-                            <?= $item['kode_keluar'] ?>
-                        </td>
-                        <?php $printedKodeKeluar[] = $item['kode_keluar']; ?>
-                    <?php endif; ?>
-                    <td><?= $item['nama_barang'] ?></td>
-                    <td><?= $item['jumlah_keluar'] ?></td>
-                    <td><?= date('Y-m-d', strtotime($item['tanggal_keluar'])) ?></td>
-                </tr>
+            <?php
+            $no = 1;
+            foreach ($kelompokBarang as $kodeKeluar => $items) :
+                foreach ($items as $index => $item) :
+            ?>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <?php if ($index === 0) : ?>
+                            <td><?= $kodeKeluar ?></td>
+                        <?php else : ?>
+                            <td></td>
+                        <?php endif; ?>
+                        <td><?= $item['nama_barang'] ?></td>
+                        <td><?= $item['jumlah_keluar'] ?></td>
+                        <td><?= date('Y-m-d', strtotime($item['tanggal_keluar'])) ?></td>
+                    </tr>
+                <?php endforeach; ?>
             <?php endforeach; ?>
         </tbody>
     </table>
 
+
+
     <div class="signatures clearfix">
         <div class="signature left">
-         
+
             <br><br>
             <p>(____________________)</p>
             <p>Penerima</p>
         </div>
         <div class="signature right">
-           
+
             <br><br>
             <p>(____________________)</p>
             <p>Petugas Gudang</p>

@@ -53,8 +53,8 @@ class BarangKeluarModel extends Model
         }
 
         if (!empty($periode_awal) && !empty($periode_akhir)) {
-            $builder->where('tanggal_keluar >=', $periode_awal);
-            $builder->where('tanggal_keluar <=', $periode_akhir);
+            $builder->where('DATE(tanggal_keluar) >=', $periode_awal);
+            $builder->where('DATE(tanggal_keluar) <=', $periode_akhir);
         }
 
         return $builder->get()->getResultArray();

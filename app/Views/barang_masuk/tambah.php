@@ -88,7 +88,7 @@
                     <select name="barang_id[]" id="barang_id" class="form-select <?= isset($validation) && $validation->hasError('barang_id.*') ? 'is-invalid' : '' ?>">
                         <option value="">Pilih Barang</option>
                         <?php foreach ($barang as $item) : ?>
-                            <option value="<?= $item['id'] ?>" <?= old('barang_id') == $item['id'] ? 'selected' : '' ?>><?= $item['nama_barang'] ?></option>
+                            <option value="<?= $item['id'] ?>" <?= old('barang_id') == $item['id'] ? 'selected' : '' ?>><?= $item['nama_barang'] ?>-[<?= $item['kode_barang'] ?>]</option>
                         <?php endforeach; ?>
                     </select>
                     <div class="invalid-feedback">

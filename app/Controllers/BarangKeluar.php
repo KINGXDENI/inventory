@@ -257,7 +257,7 @@ class BarangKeluar extends BaseController
 
         $barangKeluarModel = new BarangKeluarModel();
         $barangKeluar = $barangKeluarModel->filterBarangKeluar($kode_keluar, $periode_awal, $periode_akhir);
-
+        
         $kodeKeluar = array_unique(array_column($barangKeluarModel->findAll(), 'kode_keluar'));
 
         $data = [
