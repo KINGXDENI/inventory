@@ -6,6 +6,12 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 100px;
+            /* Height of the footer */
+            box-sizing: border-box;
         }
 
         h2 {
@@ -22,7 +28,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 100px;
+            margin-bottom: 30px;
         }
 
         th,
@@ -54,11 +60,17 @@
             left: 10px;
             width: 100px;
         }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
     </style>
 </head>
 
 <body>
-    <img src="data:image/png;base64,<?= base64_encode(file_get_contents('assets/img/logo1.png')) ?>" alt="Logo" class="logo">
+    <img src="data:image/png;base64,<?= base64_encode(file_get_contents('/mnt/data/gambar.png')) ?>" alt="Logo" class="logo">
 
     <h2>Laporan Barang <?= ucfirst($jenisLaporan) ?></h2>
     <p>Periode: <?= $periodeAwal ?> - <?= $periodeAkhir ?></p>
@@ -130,8 +142,10 @@
         <br>
         <br>
         <p>(____________________)</p>
-        <p> Petugas Gudang </p>
+        <p>Petugas Gudang</p>
     </div>
+
+    <div class="clearfix"></div>
 </body>
 
 </html>
