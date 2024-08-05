@@ -6,10 +6,6 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            min-height: 100vh;
         }
 
         h2 {
@@ -26,8 +22,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 60px;
-            /* Adjusted to make space for signature */
+            margin-bottom: 100px;
         }
 
         th,
@@ -42,7 +37,7 @@
         }
 
         .signature {
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             right: 20px;
             text-align: center;
@@ -135,7 +130,7 @@
         <br>
         <br>
         <p>(____________________)</p>
-        <p>Petugas Gudang</p>
+        <p> Petugas Gudang </p>
     </div>
 </body>
 
