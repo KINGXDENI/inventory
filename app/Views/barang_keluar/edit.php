@@ -56,7 +56,7 @@
                                 <select name="barang_id" class="form-control <?= isset($validation) && $validation->hasError('barang_id') ? 'is-invalid' : '' ?>">
                                     <option value="">Pilih Barang</option>
                                     <?php foreach ($barang as $item) : ?>
-                                        <option value="<?= $item['id'] ?>" <?= ($item['id'] == $barangKeluar['barang_id']) ? 'selected' : '' ?>><?= $item['nama_barang'] ?></option>
+                                        <option value="<?= $item['id'] ?>" <?= ($item['id'] == $barangKeluar['barang_id']) ? 'selected' : '' ?>><?= $item['nama_barang'] ?>-[<?= $item['kode_barang'] ?>]</option>
                                     <?php endforeach; ?>
                                 </select>
                                 <div class="invalid-feedback">

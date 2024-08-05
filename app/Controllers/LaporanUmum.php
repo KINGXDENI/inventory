@@ -169,7 +169,7 @@ class LaporanUmum extends BaseController
         if (is_string($periodeAkhir)) {
             $periodeAkhir = date('Y-m-d', strtotime($periodeAkhir));
         }
-
+        $total = 0;
         // Ambil data sesuai jenis laporan
         if ($jenisLaporan === 'masuk') {
             $dataLaporan = $this->barangMasukModel->getLaporanBarangMasuk($periodeAwal, $periodeAkhir);
@@ -183,11 +183,12 @@ class LaporanUmum extends BaseController
             foreach ($dataLaporan as &$item) {
                 $item['keterangan'] = 'Stok saat ini: ' . $item['stok'] . ' ' . $item['satuan']; // Sesuaikan dengan struktur data Anda
                 $item['tanggal_update'] = $item['updated_at']; // Tambahkan tanggal update terakhir
+                $total += $item['stok'];
             }
         }
 
         // Hitung total jumlah barang masuk/keluar
-        $total = 0;
+        
         foreach ($dataLaporan as $item) {
             if ($jenisLaporan === 'masuk') {
                 $total += $item['jumlah_masuk'];

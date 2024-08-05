@@ -104,7 +104,6 @@
                                 <th>Kode Barang</th>
                                 <th>Merek</th>
                                 <th>Stok</th>
-                                <th>Berat</th>
                                 <th>Satuan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -123,7 +122,6 @@
                                     <td><?= $item['kode_barang'] ?></td>
                                     <td><?= $item['merek'] ?></td>
                                     <td><?= $item['stok'] ?></td>
-                                    <td><?= $item['berat'] ?></td>
                                     <td><?= $item['satuan'] ?></td>
                                     <td class="d-flex">
                                         <a class="me-3" href="/barang/edit/<?= $item['id'] ?>">

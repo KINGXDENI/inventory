@@ -104,7 +104,6 @@ class Barang extends BaseController
                 'deskripsi' => $this->request->getPost('deskripsi'),
                 'foto' => $newName,
                 'stok' => $this->request->getPost('stok'),
-                'berat' => $this->request->getPost('berat'),
                 'satuan' => $this->request->getPost('satuan'),
                 'merek' => $this->request->getPost('merek'), // Menambahkan merek ke dalam data yang disimpan
             ];
@@ -198,7 +197,6 @@ class Barang extends BaseController
             'deskripsi' => $this->request->getPost('deskripsi'),
             'foto' => $foto,
             'stok' => $this->request->getPost('stok'),
-            'berat' => $this->request->getPost('berat'),
             'satuan' => $this->request->getPost('satuan'),
             'merek' => $this->request->getPost('merek'), // Menambahkan merek ke dalam data yang disimpan
         ];

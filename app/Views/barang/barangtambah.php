@@ -38,15 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label>Berat</label>
-                                <input type="number" name="berat" step="0.01" class="form-control <?= isset($validation) && $validation->hasError('berat') ? 'is-invalid' : '' ?>" value="<?= old('berat') ?>">
-                                <div class="invalid-feedback">
-                                    <?= isset($validation) ? $validation->getError('berat') : '' ?>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Satuan</label>
