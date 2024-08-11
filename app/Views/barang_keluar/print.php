@@ -106,10 +106,11 @@
                 foreach ($items as $index => $item) :
             ?>
                     <tr>
-                        <td><?= $no++; ?></td>
                         <?php if ($index === 0) : ?>
+                            <td><?= $no++; ?></td>
                             <td><?= $kodeKeluar ?></td>
                         <?php else : ?>
+                            <td></td>
                             <td></td>
                         <?php endif; ?>
                         <td><?= $item['nama_barang'] ?></td>
@@ -121,17 +122,13 @@
         </tbody>
     </table>
 
-
-
     <div class="signatures clearfix">
         <div class="signature left">
-
             <br><br>
             <p>(____________________)</p>
             <p>Penerima</p>
         </div>
         <div class="signature right">
-
             <br><br>
             <p>(____________________)</p>
             <p>Petugas Gudang</p>

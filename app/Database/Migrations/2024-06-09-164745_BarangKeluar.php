@@ -21,7 +21,7 @@ class BarangKeluar extends Migration
             ],
             'kode_keluar' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 10,
             ],
             'jumlah_keluar' => [
                 'type' => 'INT',

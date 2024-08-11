@@ -17,7 +17,7 @@ class Pengguna extends Migration
             ],
             'nama' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 75,
             ],
             'jabatan' => [
                 'type' => 'ENUM',
@@ -30,16 +30,16 @@ class Pengguna extends Migration
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 100,
             ],
             'email' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 50,
                 'unique' => true, // Email harus unik
             ],
             'no_telfon' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 20,
+                'constraint' => 15,
                 'null'       => true, // Nomor telepon bisa kosong
             ],
             'created_at' => [

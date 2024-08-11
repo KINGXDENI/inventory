@@ -17,7 +17,7 @@ class Barang extends Migration
             ],
             'kode_barang' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 10,
             ],
             'nama_barang' => [
                 'type'       => 'VARCHAR',
@@ -43,7 +43,7 @@ class Barang extends Migration
             ],
             'satuan' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 50,
+                'constraint' => 20,
                 'null'       => false,
             ],
             'foto' => [

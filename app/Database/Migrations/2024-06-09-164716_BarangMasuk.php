@@ -21,7 +21,7 @@ class BarangMasuk extends Migration
             ],
             'kode_masuk' => [
                 'type'       => 'VARCHAR',
-                'constraint' => 255,
+                'constraint' => 10,
             ],
             'jumlah_masuk' => [
                 'type' => 'INT',
