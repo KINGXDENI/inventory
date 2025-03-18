@@ -13,9 +13,23 @@ WORKDIR /var/www/html
 # Copy file proyek ke dalam container
 COPY . /var/www/html
 
-# Copy file .env dari sistem host jika ada
-ARG ENV_FILE=.env
-COPY ${ENV_FILE} /var/www/html/.env
+# Buat file .env dengan isi yang ditentukan
+RUN echo "CI_ENVIRONMENT=production" > /var/www/html/.env && \
+    echo "" >> /var/www/html/.env && \
+    echo "#--------------------------------------------------------------------" >> /var/www/html/.env && \
+    echo "# APP" >> /var/www/html/.env && \
+    echo "#--------------------------------------------------------------------" >> /var/www/html/.env && \
+    echo "app.baseURL='https://inventory.dibo.biz.id/'" >> /var/www/html/.env && \
+    echo "" >> /var/www/html/.env && \
+    echo "#--------------------------------------------------------------------" >> /var/www/html/.env && \
+    echo "# DATABASE" >> /var/www/html/.env && \
+    echo "#--------------------------------------------------------------------" >> /var/www/html/.env && \
+    echo "database.default.hostname=89.116.33.52" >> /var/www/html/.env && \
+    echo "database.default.database=inventory" >> /var/www/html/.env && \
+    echo "database.default.username=inventory" >> /var/www/html/.env && \
+    echo "database.default.password=inventory" >> /var/www/html/.env && \
+    echo "database.default.DBDriver=MySQLi" >> /var/www/html/.env && \
+    echo "database.default.port=7599" >> /var/www/html/.env
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
