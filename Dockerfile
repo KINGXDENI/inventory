@@ -1,11 +1,11 @@
-# Gunakan base image PHP dengan Composer
+# Gunakan base image PHP CLI
 FROM php:8.2-cli
 
 # Install ekstensi PHP yang dibutuhkan CI4
 RUN apt-get update && apt-get install -y \
-    unzip curl libpng-dev libjpeg-dev libfreetype6-dev libzip-dev \
+    unzip curl libpng-dev libjpeg-dev libfreetype6-dev libzip-dev libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd mysqli pdo pdo_mysql zip
+    && docker-php-ext-install gd mysqli pdo pdo_mysql zip intl
 
 # Set direktori kerja
 WORKDIR /var/www/html
@@ -17,9 +17,11 @@ COPY . /var/www/html
 ARG ENV_FILE=.env
 COPY ${ENV_FILE} /var/www/html/.env
 
-# Install dependency menggunakan Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && composer install --no-interaction --no-dev --prefer-dist
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Jalankan composer install
+RUN composer install --no-interaction --no-dev --prefer-dist
 
 # Set permission untuk folder writable
 RUN chmod -R 777 /var/www/html/writable
