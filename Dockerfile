@@ -1,31 +1,31 @@
-# Menggunakan image PHP dengan Apache
-FROM php:8.2-apache
+# Gunakan base image PHP dengan Composer
+FROM php:8.2-cli
 
 # Install ekstensi PHP yang dibutuhkan CI4
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip \
+    unzip curl libpng-dev libjpeg-dev libfreetype6-dev libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd mysqli pdo pdo_mysql zip
-
-# Aktifkan mod_rewrite untuk Apache
-RUN a2enmod rewrite
 
 # Set direktori kerja
 WORKDIR /var/www/html
 
-# Copy file proyek CI4 ke dalam container
+# Copy file proyek ke dalam container
 COPY . /var/www/html
 
-# Ubah izin file dan kepemilikan
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/writable
+# Copy file .env dari sistem host jika ada
+ARG ENV_FILE=.env
+COPY ${ENV_FILE} /var/www/html/.env
+
+# Install dependency menggunakan Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && composer install --no-interaction --no-dev --prefer-dist
+
+# Set permission untuk folder writable
+RUN chmod -R 777 /var/www/html/writable
 
 # Expose port 6060
 EXPOSE 6060
 
-# Konfigurasi Apache untuk listen di port 6060
-RUN sed -i 's/Listen 80/Listen 6060/' /etc/apache2/ports.conf \
-    && sed -i 's/<VirtualHost \*:80>/<VirtualHost \*:6060>/' /etc/apache2/sites-enabled/000-default.conf
-
-# Jalankan Apache
-CMD ["apache2-foreground"]
+# Jalankan server CI4
+CMD ["php", "spark", "serve", "--host=0.0.0.0", "--port=6060"]
